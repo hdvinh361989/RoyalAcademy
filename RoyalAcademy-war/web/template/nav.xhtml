@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <ui:composition>
+
+        <header id="top-nav">
+            <nav class="top-nav">
+                <div class="container">
+                    <div class="nav-wrapper"><a class="page-title">#{navigator.titles.get(view.viewId)}</a></div>
+                </div>
+            </nav>
+            <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="mdi-navigation-menu"></i></a></div>
+            <ul id="nav-mobile" class="side-nav fixed" style="width: 240px; left: -250px;">
+                <li class="logo">
+                    <a id="logo-container" href="" class="brand-logo">
+                        <h1>Logo</h1>
+                    </a>
+                </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("home") ? "active" : ""}'>
+                    <a href="home.xhtml" class="waves-effect waves-teal">Home</a>
+                </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("courses") ? "active" : ""}'>
+                    <a href="courses.xhtml" class="waves-effect waves-teal">Course</a>
+                </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("subjects") ? "active" : ""}'>
+                    <a href="subjects.xhtml" class="waves-effect waves-teal">Subject</a>                    
+                </li>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+
+                    </ul>
+                </li>
+            </ul>
+        </header>
+
+    </ui:composition>
+</html>

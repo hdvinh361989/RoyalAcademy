@@ -1,0 +1,130 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 15, 2015, 9:40:55 PM
+    Author     : vinh
+*/
+@import "animation.scss";
+
+
+//Customize
+$padding-width: 10px !default;
+$margin-width: 10px !default;
+.fullheight{
+    height: 100vh;
+}
+
+.padding{
+    padding: $padding-width;
+}
+.padding-left{
+    padding-left: $padding-width;
+}
+.padding-right{
+    padding-right: $padding-width;
+}
+.padding-top{
+    padding-top: $padding-width;
+}
+.padding-bottom{
+    padding-bottom: $padding-width;
+}
+
+.margin{
+    margin: $margin-width;
+}
+.margin-top{
+    margin-top: $margin-width;
+}
+.margin-right{
+    margin-right: $margin-width;
+}
+.margin-bottom{
+    margin-bottom: $margin-width;
+}
+.margin-left{
+    margin-left: $margin-width;
+}
+
+
+.no-margin{
+    margin:0;
+}
+.ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.full-width{
+    width: 100%;
+}
+
+//Primefaces edit
+.ui-datascroller-content{
+    padding: 0;
+}
+.ui-widget-content{
+    border: 0;
+    background: inherit;
+    color: inherit;
+}
+.ui-widget{
+    font-family: Roboto, sans-serif;
+}
+//Autocomplete
+.vt-autocomplete.ui-autocomplete{
+    width:100%;
+}
+.vt-autocomplete{
+    .ui-autocomplete-multiple-container{
+        width: 100%;
+        background: transparent;
+        box-shadow: none;
+        border: 0px;
+        border-bottom: 1px solid #9e9e9e;
+        border-radius: inherit;
+
+        input{
+            border-bottom: 0px !important;
+            box-shadow: none !important;
+            padding-left: 5px;
+        }
+        .ui-autocomplete-token{
+            display: list-item;
+            background: #eee;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: none;
+            text-shadow: none;
+            margin: 5px;
+            
+            &:hover{
+                background: #ee6e73;
+                color: white;
+            }
+            &:active{
+                background: #ee6e73;
+                color: white;
+            }
+
+
+            .ui-autocomplete-token-label{
+                padding: 10px 20px 10px 10px;
+            }
+            .ui-autocomplete-token-icon{
+                top:10px;
+            }
+        }
+    }
+}
+
+.vt-focus {
+    border-bottom: 1px solid #26a69a !important;
+    box-shadow: 0 1px 0 0 #26a69a !important;
+}
+/*materializecss*/
+//Card
+

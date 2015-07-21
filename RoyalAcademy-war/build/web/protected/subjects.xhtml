@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">
+                <h:form id="createSubject" styleClass="row padding-top">
+                    <p:growl id="msg" autoUpdate="true"/>
+                    <div class="col s12 row">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <p:inputText id="name" styleClass="validate"
+                                             value='#{subjectMB.newSubject.name}'
+                                             required="true" requiredMessage="Name is required"
+                                             placeholder="Name"/>
+                            </div>
+                            <div class="input-field col s6">
+                                <p:autoComplete id="areaOfStudy"
+                                                value="#{subjectMB.newSubject.areaOfStudy}"
+                                                completeMethod="#{subjectMB.getAreaOfStudy}" var="item"
+                                                itemLabel="#{item.name}" itemValue="#{item}"
+                                                converter="areaOfStudy" converterMessage="Convert fail"
+                                                emptyMessage="No result found"
+                                                maxResults="10"
+                                                forceSelection="true"
+                                                required="true" requiredMessage="Area of Study is required"
+                                                placeholder="Area of Study"
+                                                styleClass="validate vt-autocomplete">
+                                </p:autoComplete>
+                            </div>
+                        </div>
+                        <div class="center row">
+                            <p:commandLink id="saveBtn" 
+                                           action="#{subjectMB.save(subjectMB.newSubject)}"
+                                           styleClass="btn waves-effect waves-light margin-right"
+                                           validateClient="true"
+                                           update='readSubject:dataScroller createSubject'
+                                           >
+                                Save
+                                <p:defaultCommand target="saveBtn" />
+                            </p:commandLink>
+                            <p:commandLink id="resetBtn" 
+                                           styleClass="btn white grey-text text-darken-4 waves-effect waves-teal margin-left"
+                                           action="#{subjectMB.reset()}"
+                                           update='createSubject'
+                                           >
+                                Reset
+                            </p:commandLink>
+                        </div>
+                    </div>
+                </h:form>
+
+
+
+                <h:form id="readSubject">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons mdi-action-search prefix small"></i>
+                            <p:inputText id="searchTxt" type="text"
+                                         value="#{subjectMB.searchTxt}"
+                                         placeholder="Search by name"
+                                         >
+                                <!--onkeyup="searchInit(event)"-->
+                                <p:ajax event="keyup" 
+                                        update="readSubject:dataScroller" delay="500"/>
+                            </p:inputText>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <p:dataScroller id="dataScroller" value="#{subjectMB.loadSubject(subjectMB.searchTxt)}" var="subject" chunkSize="10">
+                            <div class="col s12 m4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                             data-position="top" data-delay="50" data-tooltip="#{subject.name}">#{subject.name}</div>
+                                        <p>
+                                            <i class="material-icons mdi-action-today padding-right tooltipped"
+                                               data-position='left' data-delay='50' data-tooltip='Created Date'></i>
+                                            <h:outputText value="#{subject.createdDate}">
+                                                <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                            </h:outputText>
+                                        </p>
+                                    </div>
+                                    <div class="card-action">
+                                        <p:commandLink value="Delete" action="#{subjectMB.delete(subject)}" update="readSubject:dataScroller">
+                                        </p:commandLink>
+                                        <p:commandLink value="Edit" action="#{subjectMB.edit(subject)}" update="createSubject">
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.tooltipped').tooltip({delay: 50});
+                                });
+                            </script>
+                        </p:dataScroller>
+                    </div>
+                </h:form>
+            </main>
+        </ui:define>
+    </ui:composition>
+</html>

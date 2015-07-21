@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:head>
+        <title>Royal Academy Login</title>
+        <meta name="viewport" content="width=device-width"/>
+        <!--<h:outputStylesheet library="css" name="materialize.css"/>-->
+        <h:outputStylesheet library="css" name="ghpages-materialize.css"/>
+        <h:outputStylesheet library="css" name="main.css"/>
+        <h:outputScript library="js" name="materialize.js"/> 
+        <h:outputScript library="js" name="init.js"/>
+        <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->       
+    </h:head>
+    <h:body>
+        <div class="fullheight row">
+
+            <!--Side Navigation left panel-->
+            <ui:insert name="side-nav">
+                <ui:include src="nav.xhtml"/>
+            </ui:insert>
+
+            <!--Main content right panel-->
+            <ui:insert name="content">
+                content
+            </ui:insert>
+
+
+        </div>
+        
+    </h:body>
+</html>

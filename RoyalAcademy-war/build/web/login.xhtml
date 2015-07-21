@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+    <h:head>
+        <title>Royal Academy Login</title>
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet library="css" name="materialize.css"/>
+        <h:outputStylesheet library="css" name="main.css"/>
+        <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <h:outputScript library="js" name="materialize.js"/>
+    </h:head>
+    <h:body>
+        <h:form id="login">
+            <div class="container valign-wrapper row" style="height: 100vh">
+                <div class="valign row col s12">
+                    <div class="col s4 offset-s4">
+                        <div class="vt-message">
+                            <p:messages id="messages" autoUpdate="true" closable="true" showDetail="false"/>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <p:inputText id="username" 
+                                             value="#{userMB.user.username}"
+                                             styleClass="validate">
+                                    <f:validateRequired/>
+                                </p:inputText>
+                                <p:outputLabel for="username" value="username"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field">
+                                <p:password id="password" 
+                                             value="#{userMB.user.password}"
+                                             styleClass="validate">
+                                    <f:validateRequired/>
+                                </p:password>
+                                <p:outputLabel for="password" value="password"/>
+                            </div>
+                        </div>
+
+
+                        <div class="center">
+                            <p:commandLink styleClass="waves-effect waves-light btn"
+                                           action="#{userMB.login()}" >
+                                Submit
+                                <i class="material-icons mdi-content-send right"></i>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
