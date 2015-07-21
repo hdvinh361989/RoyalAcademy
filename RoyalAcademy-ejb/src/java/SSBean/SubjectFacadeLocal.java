@@ -28,9 +28,9 @@ public interface SubjectFacadeLocal {
 
     Subject find(Object id);
     
-    List<Subject> findByArea(AreaOfStudy area);
+    List<Subject> findByArea_Name(AreaOfStudy area, String query);
     
-    List<Subject> findNameGroupArea(String query);
+    List<String> findNameGroupArea(String query);
 
     List<Subject> findAll();
 

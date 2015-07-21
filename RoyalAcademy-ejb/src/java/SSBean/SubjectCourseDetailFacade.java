@@ -47,6 +47,7 @@ public class SubjectCourseDetailFacade extends AbstractFacade<SubjectCourseDetai
 
     @Override
     public List<SubjectCourseDetail> findByCourse(Courses course) {
+        course = em.merge(course);
         return new ArrayList<SubjectCourseDetail>(course.getSubjectCourseDetailCollection());
 //        return em.createNamedQuery("SubjectCourseDetail.findByCourse").setParameter("course", course).getResultList();
     }

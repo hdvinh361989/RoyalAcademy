@@ -44,7 +44,7 @@ and open the template in the editor.
                                            action="#{subjectMB.save(subjectMB.newSubject)}"
                                            styleClass="btn waves-effect waves-light margin-right"
                                            validateClient="true"
-                                           update='readSubject:dataScroller createSubject'
+                                           update='readSubject:areaScroller createSubject'
                                            >
                                 Save
                                 <p:defaultCommand target="saveBtn" />
@@ -72,39 +72,53 @@ and open the template in the editor.
                                          >
                                 <!--onkeyup="searchInit(event)"-->
                                 <p:ajax event="keyup" 
-                                        update="readSubject:dataScroller" delay="500"/>
+                                        update="readSubject:areaScroller" delay="500"/>
                             </p:inputText>
                         </div>
                     </div>
 
                     <div class="row">
-                        <p:dataScroller id="dataScroller" value="#{subjectMB.loadSubject(subjectMB.searchTxt)}" var="subject" chunkSize="10">
-                            <div class="col s12 m4">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
-                                             data-position="top" data-delay="50" data-tooltip="#{subject.name}">#{subject.name}</div>
-                                        <p>
-                                            <i class="material-icons mdi-action-today padding-right tooltipped"
-                                               data-position='left' data-delay='50' data-tooltip='Created Date'></i>
-                                            <h:outputText value="#{subject.createdDate}">
-                                                <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
-                                            </h:outputText>
-                                        </p>
+                        <p:dataScroller id="areaScroller" 
+                                        value="#{subjectMB.loadGroupArea(subjectMB.searchTxt)}" var="area"
+                                        chunkSize="2"
+                                        styleClass="col s12">
+                            <div class="row">
+                                <h3>#{area[1]}</h3>
+                                <p:dataScroller id="dataScroller" 
+                                                value="#{subjectMB.loadSubjectByArea_Name(area[0], subjectMB.searchTxt)}" var="subject" 
+                                                chunkSize="10">
+                                    <div class="col s12 m4">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" data-delay="50" data-tooltip="#{subject.name}">#{subject.name}</div>
+                                                <p>
+                                                    <i class="material-icons mdi-action-today padding-right tooltipped"
+                                                       data-position='left' data-delay='50' data-tooltip='Created Date'></i>
+                                                    <h:outputText value="#{subject.createdDate}">
+                                                        <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                                    </h:outputText>
+                                                </p>
+                                            </div>
+                                            <div class="card-action">
+                                                <p:commandLink value="Delete" 
+                                                               action="#{subjectMB.delete(subject)}" 
+                                                               update="readSubject:areaScroller">
+                                                </p:commandLink>
+                                                <p:commandLink value="Edit" 
+                                                               action="#{subjectMB.edit(subject)}" 
+                                                               update="createSubject">
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-action">
-                                        <p:commandLink value="Delete" action="#{subjectMB.delete(subject)}" update="readSubject:dataScroller">
-                                        </p:commandLink>
-                                        <p:commandLink value="Edit" action="#{subjectMB.edit(subject)}" update="createSubject">
-                                        </p:commandLink>
-                                    </div>
-                                </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+                                    </script>
+                                </p:dataScroller>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    $('.tooltipped').tooltip({delay: 50});
-                                });
-                            </script>
                         </p:dataScroller>
                     </div>
                 </h:form>

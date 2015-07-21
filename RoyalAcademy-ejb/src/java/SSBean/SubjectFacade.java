@@ -24,6 +24,8 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFacadeLocal {
 
+    private static final Integer MAX_RESULT = 10;
+    
     @PersistenceContext(unitName = "RoyalAcademy-ejbPU")
     private EntityManager em;
 
@@ -61,12 +63,17 @@ public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFac
     }
 
     @Override
-    public List<Subject> findByArea(AreaOfStudy area) {
-        return new ArrayList<Subject>(area.getSubjectCollection());
+    public List<Subject> findByArea_Name(AreaOfStudy area, String query) {
+        area = em.merge(area);
+        return em.createNamedQuery("Subject.findByArea_Name")
+                .setParameter("name", "%" + query + "%")
+                .setParameter("area", area)
+                .setMaxResults(MAX_RESULT)
+                .getResultList();
     }
 
     @Override
-    public List<Subject> findNameGroupArea(String query) {
+    public List<String> findNameGroupArea(String query) {
         return em.createNamedQuery("Subject.FindNameGroupArea")
                 .setParameter("name", "%" + query + "%")
                 .getResultList();

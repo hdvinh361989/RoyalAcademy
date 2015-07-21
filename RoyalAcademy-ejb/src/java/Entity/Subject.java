@@ -36,7 +36,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subject.findAll", query = "SELECT s FROM Subject s"),
     @NamedQuery(name = "Subject.findById", query = "SELECT s FROM Subject s WHERE s.id = :id"),
     @NamedQuery(name = "Subject.findByName", query = "SELECT s FROM Subject s WHERE s.name like :name"),
-    @NamedQuery(name = "Subject.FindNameGroupArea", query = "SELECT s.areaOfStudy FROM Subject s WHERE s.name like :name GROUP BY s.areaOfStudy"),
+    @NamedQuery(name = "Subject.findByArea_Name", query = "SELECT s FROM Subject s WHERE s.name like :name AND s.areaOfStudy = :area"),
+    @NamedQuery(name = "Subject.FindNameGroupArea", 
+            query = "SELECT s.areaOfStudy.id, s.areaOfStudy.name "
+            + "FROM Subject s "
+            + "WHERE s.name like :name "
+            + "GROUP BY s.areaOfStudy.id, s.areaOfStudy.name"),
     @NamedQuery(name = "Subject.findByCreatedDate", query = "SELECT s FROM Subject s WHERE s.createdDate = :createdDate")})
 public class Subject implements Serializable {
     @OneToMany(mappedBy = "subject")

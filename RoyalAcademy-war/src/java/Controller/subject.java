@@ -78,11 +78,12 @@ public class subject {
         return subjectFacade.findByName(query);
     }
     
-    public List<Subject> loadSubject(AreaOfStudy area){
-        return subjectFacade.findByArea(area);
+    public List<Subject> loadSubjectByArea_Name(String areaID, String query){
+        AreaOfStudy tempArea = areaOfStudyFacade.find(areaID);
+        return subjectFacade.findByArea_Name(tempArea, query);
     }
     
-    public List<Subject> loadGroupArea(String query){
+    public List<String> loadGroupArea(String query){
         return subjectFacade.findNameGroupArea(query);
     }
 
