@@ -6,6 +6,7 @@
 package SSBean;
 
 import Entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +38,13 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
                 .getSingleResult();
         
         return user;
+    }
+
+    @Override
+    public List<User> findByName(String query) {
+        return em.createNamedQuery("User.findByFullName")
+                .setParameter("fullName", query)
+                .getResultList();
     }
     
 }

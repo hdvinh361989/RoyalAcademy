@@ -26,6 +26,8 @@ public class navigator {
         titles.put("/protected/home.xhtml", "Home");
         titles.put("/protected/courses.xhtml", "Courses");
         titles.put("/protected/subjects.xhtml", "Subjects");
+        titles.put("/protected/user_create.xhtml", "Create user");
+        titles.put("/protected/user_view.xhtml", "View user");
     }
 
     /**

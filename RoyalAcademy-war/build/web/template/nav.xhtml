@@ -38,7 +38,27 @@ and open the template in the editor.
                 </li>
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
-
+                        <li class='bold #{navigator.titles.get(view.viewId).contains("user") ? "active" : ""}'>
+                            <a class='collapsible-header #{navigator.titles.get(view.viewId).contains("user") ? "active" : ""} 
+                               waves-effect waves-teal'>
+                                User
+                            </a>
+                            <div class="collapsible-body" style="display: block">
+                                <ul>
+                                    <li>
+                                        <a href="user_create.xhtml" 
+                                           class='waves-effect wave-red 
+                                           #{navigator.titles.get(view.viewId).equalsIgnoreCase("create user") ? "active" : ""}'>
+                                            Create</a>
+                                    </li>
+                                    <li><a href="user_view.xhtml" 
+                                           class='waves-effect wave-red
+                                           #{navigator.titles.get(view.viewId).equalsIgnoreCase("view user") ? "active" : ""}'>
+                                            View</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </li>
             </ul>

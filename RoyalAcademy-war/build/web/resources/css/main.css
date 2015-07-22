@@ -21,10 +21,17 @@ vt-move-active { opacity: 0; top: -50%; }
 .padding { padding: 10px; }
 
 .padding-left { padding-left: 10px; }
+.padding-left.x2 { padding-left: 20px !important; }
+.padding-left.x3 { padding-left: 30px !important; }
+.padding-left.x4 { padding-left: 40px !important; }
 
 .padding-right { padding-right: 10px; }
 
 .padding-top { padding-top: 10px; }
+.padding-top.x2 { padding-top: 20px; }
+.padding-top.x3 { padding-top: 30px; }
+.padding-top.x4 { padding-top: 40px; }
+.padding-top.x5 { padding-top: 50px; }
 
 .padding-bottom { padding-bottom: 10px; }
 
@@ -61,5 +68,12 @@ vt-move-active { opacity: 0; top: -50%; }
 .vt-autocomplete .ui-autocomplete-multiple-container .ui-autocomplete-token .ui-autocomplete-token-icon { top: 10px; }
 
 .vt-focus { border-bottom: 1px solid #26a69a !important; box-shadow: 0 1px 0 0 #26a69a !important; }
+
+.vt-oneBtn { margin: 0px 15px 0px 15px; }
+.vt-oneBtn .ui-button { overflow: hidden; background-color: white; color: #333; font-weight: normal; background-image: none; }
+.vt-oneBtn .ui-button .ui-button-text { display: inline; }
+.vt-oneBtn .ui-button.ui-state-active { background-color: #ee6e73; color: white; }
+
+.switch { height: 58px; /* vertical-align: middle; */ display: flex; align-items: flex-end; }
 
 /*materializecss*/

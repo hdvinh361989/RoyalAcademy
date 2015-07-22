@@ -10,6 +10,7 @@ import helper.MessageHelper;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @author vinh
  */
 @ManagedBean(name = "userMB")
-@RequestScoped
+@ViewScoped
 public class User {
 //    Local variable
 

@@ -89,7 +89,7 @@ public class User implements Serializable {
     @Column(name = "phone")
     private String phone;
     @Size(max = 10)
-    @Column(name = "role")
+    @Column(name = "[role]")
     private String role;
     @Column(name = "createdDate")
     @Temporal(TemporalType.DATE)

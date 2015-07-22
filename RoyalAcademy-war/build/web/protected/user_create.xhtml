@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">
+                <h:form id="createUser" styleClass="row padding-top x3">
+                    <p:growl id="msg" autoUpdate="true"/>
+
+                    <section id="roleSection" class="col s12 row">
+
+                        <!--<h:outputText value="Role:"/>-->
+                        <p:selectOneButton id="role" 
+                                           value="#{user_createMB.newUser.role}"
+                                           styleClass="vt-oneBtn">
+                            <p:ajax event="change" update="createUser"/>
+                            <f:selectItem itemLabel="Student" itemValue="student"/>
+                            <f:selectItem itemLabel="Staff" itemValue="staff"/>
+                            <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                        </p:selectOneButton>
+
+                    </section>
+
+                    <section id="general" class="col s12 row padding-left x2">
+                        <p:outputPanel id="courseWrapper"
+                                       styleClass="input-field col s6"
+                                       rendered='#{(user_createMB.newUser.role.equalsIgnoreCase("student"))}'>
+                            <p:autoComplete id="course" widgetVar="wCourse"
+                                            value="#{user_createMB.newUser.course}"
+                                            completeMethod="#{user_createMB.courseAutos}" var="item"
+                                            itemLabel="#{item.name}" itemValue="#{item}"
+                                            forceSelection="true"
+                                            converter="courseCvtr" converterMessage="Convert fail"
+                                            maxResults="10"
+                                            emptyMessage="No result found"
+                                            styleClass="validate vt-autocomplete"
+                                            placeholder="Course"/>
+                        </p:outputPanel>
+                        <div class="col s6">
+                            <div class="switch">
+                                <label>
+                                    Available: Off
+                                    <p:inputText id="available"
+                                                 type="checkbox" 
+                                                 value="#{user_createMB.newUser.available}"/>
+                                    <span class="lever"></span>
+                                    On
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="profile" class="col s12 row">
+                        <div class="col s12 row">
+                            <div class="input-field col s6">
+                                <p:inputText type="text" id="username"
+                                             value="#{user_createMB.newUser.username}"
+                                             styleClass=""
+                                             placeholder="Username"/>                            
+                            </div>
+                            <div class="input-field col s6">
+                                <p:inputText type="password" id="password"
+                                             value="#{user_createMB.newUser.password}"
+                                             styleClass=""
+                                             placeholder="Password"/>
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s6">
+                                <p:inputText type="text" id="fullName"
+                                             value="#{user_createMB.newUser.fullName}"
+                                             styleClass="validate"
+                                             placeholder="Full name"
+                                             required="true" requiredMessage="Full name is required"/>                            
+                            </div>
+                            <div class="input-field col s6">
+                                <p:inputText id="email"
+                                             value="#{user_createMB.newUser.mail}"
+                                             styleClass="validate"
+                                             placeholder="Email"
+                                             required="true" requiredMessage="Email is required"
+                                             validatorMessage="Wrong email format">
+                                    <f:validateRegex 
+                                        pattern="^\d+(\.\d+)*@\d+(\.\d+)*(\.\d{2,})$" 
+                                        for="email"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s12">
+                                <p:inputText type="text" id="address"
+                                             value="#{user_createMB.newUser.address}"
+                                             styleClass="validate"
+                                             required="true" requiredMessage="Address is required"
+                                             placeholder="Address"/>                            
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s4">
+                                <p:inputText type="date" id="birthDay"
+                                             value="#{user_createMB.newUser.birthday}"
+                                             styleClass="datepicker"
+                                             placeholder="Birthday"
+                                             converter="dateTime"
+                                             required="true" requiredMessage="Birthday is required">
+                                    <f:convertDateTime for="birthDay" 
+                                                       pattern="dd MMMM, yyyy"
+                                                       timeZone="#{TIMEZONE.timeZone}"/>
+                                </p:inputText>
+                            </div>
+                            <div class="input-field col s4">
+                                <p:inputText type="text" id="phone"
+                                             value="#{user_createMB.newUser.phone}"
+                                             styleClass="validate"
+                                             placeholder="Phone"
+                                             required="true" requiredMessage="Phone is required"
+                                             validatorMessage="Phone is wrong format">
+                                    <f:validateRegex pattern="^0\d{9,10}$" />
+                                </p:inputText>
+                            </div>
+                            <div class="input-field col s4">
+                                <p:selectOneButton id="gender" 
+                                                   value="#{user_createMB.newUser.gender}"
+                                                   styleClass="vt-oneBtn">
+                                    <f:selectItem itemLabel="Male" itemValue="true"/>
+                                    <f:selectItem itemLabel="Female" itemValue="false"/>
+                                </p:selectOneButton>
+                            </div>
+                        </div>
+
+                        <div class="col s12 center">
+                            <p:commandLink id='saveBtn'
+                                           styleClass="btn waves-effect wavees-light margin-right"
+                                           action="#{user_createMB.save()}" 
+                                           update="createUser"
+                                           validateClient="true">
+                                Save
+                            </p:commandLink>
+                            <p:commandLink id='resetBtn'
+                                           styleClass="btn white  grey-text text-darken-4  waves-effect wavees-teal margin-left"
+                                           action="#{user_createMB.reset()}" 
+                                           update="createUser">
+                                Reset
+                            </p:commandLink>
+                            <p:defaultCommand target="saveBtn" />
+                        </div>
+
+                        <script>
+                            $('.datepicker').pickadate({
+                                selectMonths: true, // Creates a dropdown to control month
+                                selectYears: 15 // Creates a dropdown of 15 years to control year
+                            });
+
+                            var button = $('.vt-oneBtn.ui-selectonebutton .ui-button');
+                            button.addClass('btn waves-effect waves-red');
+                        </script>
+                    </section>
+                </h:form>
+            </main>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -158,6 +158,14 @@
                 autoCompleteContainer.removeClass("vt-focus");
             },300);
         });
+        
+        //SelectOneButton customize: add class btn, waves-effect, waves-red
+        var selectOneBtn = $('.vt-oneBtn.ui-selectonebutton');
+        var button = $('.vt-oneBtn.ui-selectonebutton .ui-button');
+        
+        button.addClass('btn waves-effect waves-red');     
+        
+        
 
 
     }); // end of document ready

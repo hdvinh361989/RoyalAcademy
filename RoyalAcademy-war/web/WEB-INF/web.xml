@@ -37,4 +37,10 @@
         <local>SSBean.SubjectFacadeLocal</local>
         <ejb-link>RoyalAcademy-ejb.jar#SubjectFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>CoursesFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SSBean.CoursesFacadeLocal</local>
+        <ejb-link>RoyalAcademy-ejb.jar#CoursesFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>
