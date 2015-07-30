@@ -21,20 +21,42 @@ and open the template in the editor.
                     <section id="roleSection" class="col s12 row">
 
                         <!--<h:outputText value="Role:"/>-->
-                        <p:selectOneButton id="role" 
-                                           value="#{user_createMB.newUser.role}"
-                                           styleClass="vt-oneBtn">
-                            <p:ajax event="change" update="createUser"/>
-                            <f:selectItem itemLabel="Student" itemValue="student"/>
-                            <f:selectItem itemLabel="Staff" itemValue="staff"/>
-                            <f:selectItem itemLabel="Admin" itemValue="admin"/>
-                        </p:selectOneButton>
+                        <div class="col s12 m5">
+                            <p:selectOneButton id="role" 
+                                               value="#{user_createMB.newUser.role}"
+                                               styleClass="vt-oneBtn margin-left">
+                                <p:ajax event="change" update="createUser"/>
+                                <f:selectItem itemLabel="Student" itemValue="student"/>
+                                <f:selectItem itemLabel="Staff" itemValue="staff"/>
+                                <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                            </p:selectOneButton>
+                        </div>
+
+                        <div class=" col s12 m4">
+                            <p:selectOneButton id="gender" 
+                                               value="#{user_createMB.newUser.gender}"
+                                               styleClass="vt-oneBtn">
+                                <f:selectItem itemLabel="Male" itemValue="true"/>
+                                <f:selectItem itemLabel="Female" itemValue="false"/>
+                            </p:selectOneButton>
+                        </div>
+                        
+                        <div class="col s12 m3">
+                            <div class="switch">
+                                <p:outputLabel value="Available" for="available"/>
+                                <p:inputSwitch id="available"
+                                               value="#{user_createMB.newUser.available}" 
+                                               onLabel="On" offLabel="Off"
+                                               styleClass="vt-booleancheckbox"/>                                
+                            </div>
+                        </div>
+
 
                     </section>
 
                     <section id="general" class="col s12 row padding-left x2">
                         <p:outputPanel id="courseWrapper"
-                                       styleClass="input-field col s6"
+                                       styleClass="input-field col s12"
                                        rendered='#{(user_createMB.newUser.role.equalsIgnoreCase("student"))}'>
                             <p:autoComplete id="course" widgetVar="wCourse"
                                             value="#{user_createMB.newUser.course}"
@@ -47,45 +69,36 @@ and open the template in the editor.
                                             styleClass="validate vt-autocomplete"
                                             placeholder="Course"/>
                         </p:outputPanel>
-                        <div class="col s6">
-                            <div class="switch">
-                                <label>
-                                    Available: Off
-                                    <p:inputText id="available"
-                                                 type="checkbox" 
-                                                 value="#{user_createMB.newUser.available}"/>
-                                    <span class="lever"></span>
-                                    On
-                                </label>
-                            </div>
-                        </div>
+                        
                     </section>
 
                     <section id="profile" class="col s12 row">
                         <div class="col s12 row">
-                            <div class="input-field col s6">
-                                <p:inputText type="text" id="username"
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="text" id="uuiidd"
                                              value="#{user_createMB.newUser.username}"
                                              styleClass=""
-                                             placeholder="Username"/>                            
+                                             placeholder="Username"
+                                             autocomplete="off" />                            
                             </div>
-                            <div class="input-field col s6">
-                                <p:inputText type="password" id="password"
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="password" id="ppwwdd"
                                              value="#{user_createMB.newUser.password}"
                                              styleClass=""
-                                             placeholder="Password"/>
+                                             placeholder="Password"
+                                             autocomplete="off"/>
                             </div>
                         </div>
 
                         <div class="col s12 row">
-                            <div class="input-field col s6">
+                            <div class="input-field col s12 m6">
                                 <p:inputText type="text" id="fullName"
                                              value="#{user_createMB.newUser.fullName}"
                                              styleClass="validate"
                                              placeholder="Full name"
                                              required="true" requiredMessage="Full name is required"/>                            
                             </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col s12 m6">
                                 <p:inputText id="email"
                                              value="#{user_createMB.newUser.mail}"
                                              styleClass="validate"
@@ -93,7 +106,7 @@ and open the template in the editor.
                                              required="true" requiredMessage="Email is required"
                                              validatorMessage="Wrong email format">
                                     <f:validateRegex 
-                                        pattern="^\d+(\.\d+)*@\d+(\.\d+)*(\.\d{2,})$" 
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" 
                                         for="email"/>
                                 </p:inputText>
                             </div>
@@ -110,7 +123,7 @@ and open the template in the editor.
                         </div>
 
                         <div class="col s12 row">
-                            <div class="input-field col s4">
+                            <div class="input-field col s12 m6">
                                 <p:inputText type="date" id="birthDay"
                                              value="#{user_createMB.newUser.birthday}"
                                              styleClass="datepicker"
@@ -122,7 +135,7 @@ and open the template in the editor.
                                                        timeZone="#{TIMEZONE.timeZone}"/>
                                 </p:inputText>
                             </div>
-                            <div class="input-field col s4">
+                            <div class="input-field col s12 m6">
                                 <p:inputText type="text" id="phone"
                                              value="#{user_createMB.newUser.phone}"
                                              styleClass="validate"
@@ -131,22 +144,14 @@ and open the template in the editor.
                                              validatorMessage="Phone is wrong format">
                                     <f:validateRegex pattern="^0\d{9,10}$" />
                                 </p:inputText>
-                            </div>
-                            <div class="input-field col s4">
-                                <p:selectOneButton id="gender" 
-                                                   value="#{user_createMB.newUser.gender}"
-                                                   styleClass="vt-oneBtn">
-                                    <f:selectItem itemLabel="Male" itemValue="true"/>
-                                    <f:selectItem itemLabel="Female" itemValue="false"/>
-                                </p:selectOneButton>
-                            </div>
+                            </div>                            
                         </div>
 
                         <div class="col s12 center">
                             <p:commandLink id='saveBtn'
                                            styleClass="btn waves-effect wavees-light margin-right"
                                            action="#{user_createMB.save()}" 
-                                           update="createUser"
+                                           update="createUser readRecentUser"
                                            validateClient="true">
                                 Save
                             </p:commandLink>
@@ -169,6 +174,118 @@ and open the template in the editor.
                             button.addClass('btn waves-effect waves-red');
                         </script>
                     </section>
+                </h:form>
+
+                <h:form id="readRecentUser">
+                    <!--                    <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons mdi-action-search prefix small"></i>
+                                                <p:inputText id="searchTxt" type="text"
+                                                             value="#{user_createMB.searchTxt}"
+                                                             placeholder="Search by name"
+                                                             >
+                                                    onkeyup="searchInit(event)"
+                                                    <p:ajax event="keyup" 
+                                                            update="readRecentUser:dataTable" delay="500"/>
+                                                </p:inputText>
+                                            </div>
+                                        </div>-->
+
+                    <div class="row">
+                        <p:dataTable id="dataTable" widgetVar="UserTables"
+                                     value="#{user_createMB.newUserList}" var="user"
+                                     rows="15" paginator="true"
+                                     paginatorPosition="top"
+                                     filteredValue="#{user_createMB.filterList}" 
+                                     rowKey="#{user.id}"
+                                     selection="#{user_createMB.selectedUsers}">
+
+                            <f:facet name="header">
+                                <p:outputPanel styleClass="row">                                    
+                                    <div class="col s12">
+                                        <p:commandLink id="editSelectionBtn"
+                                                       action="#{user_createMB.modifySelectedUsers()}"
+                                                       styleClass="btn waves-effect waves-light white-text right">
+                                            <span class="tooltipped"
+                                                  data-position="top"
+                                                  data-tooltip="Modify username, password, course">
+                                                Modify
+                                            </span>
+                                        </p:commandLink>
+                                    </div>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column width="50" selectionMode="multiple" 
+                                      styleClass="text-center"/>
+
+                            <p:column sortBy="#{user.username}" 
+                                      filterBy="#{user.username}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Username"/>
+                                </f:facet>
+                                <h:outputText value="#{user.username}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{user.fullName}" 
+                                      filterBy="#{user.fullName}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Fullname"/>
+                                </f:facet>
+                                <h:outputText value="#{user.fullName}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{user.course.name}" 
+                                      headerText="Course"
+                                      filterBy="#{user.course}"
+                                      filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('UserTables').filter()" 
+                                                     styleClass="vt-selectonemenu">
+                                        <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{user_createMB.loadCoursesByUserCreatedDate()}" var="course" 
+                                                       itemLabel="#{course.name}"
+                                                       itemValue="#{course}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{user.course.name}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <h:outputText value="#{user.mail}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Phone"/>
+                                </f:facet>
+                                <h:outputText value="#{user.phone}"/>
+                            </p:column>
+
+                            <p:column width="110">
+                                <p:commandLink action="#{user_createMB.delete(user)}" 
+                                               update="readRecentUser"
+                                               styleClass="btn-floating waves-effect waves-light red margin-right">
+                                    <i class="material-icons mdi-content-remove"></i>
+                                </p:commandLink>
+                                <p:commandLink action="#{user_createMB.edit(user)}" 
+                                               update="createUser"
+                                               styleClass="btn-floating waves-effect waves-teal light">
+                                    <i class="material-icons mdi-editor-mode-edit"></i>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
                 </h:form>
             </main>
         </ui:define>

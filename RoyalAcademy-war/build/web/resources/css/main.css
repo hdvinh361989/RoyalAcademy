@@ -18,6 +18,8 @@ vt-move-active { opacity: 0; top: -50%; }
 
 .fullheight { height: 100vh; }
 
+.text-center { text-align: center; }
+
 .padding { padding: 10px; }
 
 .padding-left { padding-left: 10px; }
@@ -69,11 +71,18 @@ vt-move-active { opacity: 0; top: -50%; }
 
 .vt-focus { border-bottom: 1px solid #26a69a !important; box-shadow: 0 1px 0 0 #26a69a !important; }
 
-.vt-oneBtn { margin: 0px 15px 0px 15px; }
 .vt-oneBtn .ui-button { overflow: hidden; background-color: white; color: #333; font-weight: normal; background-image: none; }
 .vt-oneBtn .ui-button .ui-button-text { display: inline; }
 .vt-oneBtn .ui-button.ui-state-active { background-color: #ee6e73; color: white; }
 
-.switch { height: 58px; /* vertical-align: middle; */ display: flex; align-items: flex-end; }
+.switch { /*height: 58px;*/ /* vertical-align: middle; */ display: flex; align-items: flex-end; }
+
+.vt-booleancheckbox.ui-inputswitch { border-radius: 10px; border: 1px solid #ddd; }
+.vt-booleancheckbox.ui-inputswitch .ui-inputswitch-off { background-color: #ee6e73; height: 25px; color: white; font-weight: normal; background-image: none; }
+.vt-booleancheckbox.ui-inputswitch .ui-inputswitch-on { height: 25px; top: -1px; color: white; font-weight: normal; text-shadow: none; width: 32px; background-image: none; background-color: #26a69a; }
+.vt-booleancheckbox.ui-inputswitch .ui-inputswitch-handle { background-image: none; background-color: #f1f1f1; }
+
+.ui-column-customfilter .vt-selectonemenu { width: 100% !important; }
+.ui-column-customfilter .vt-selectonemenu label { width: 100% !important; }
 
 /*materializecss*/

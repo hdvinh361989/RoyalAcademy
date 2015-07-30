@@ -16,15 +16,16 @@ and open the template in the editor.
             <main class="container">
                 <h:form id="createSubject" styleClass="row padding-top">
                     <p:growl id="msg" autoUpdate="true"/>
+                    
                     <div class="col s12 row">
                         <div class="row">
-                            <div class="input-field col s6">
+                            <div class="input-field col m6 s12">
                                 <p:inputText id="name" styleClass="validate"
                                              value='#{subjectMB.newSubject.name}'
                                              required="true" requiredMessage="Name is required"
                                              placeholder="Name"/>
                             </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col m6 s12">
                                 <p:autoComplete id="areaOfStudy"
                                                 value="#{subjectMB.newSubject.areaOfStudy}"
                                                 completeMethod="#{subjectMB.getAreaOfStudy}" var="item"
@@ -50,7 +51,7 @@ and open the template in the editor.
                                 <p:defaultCommand target="saveBtn" />
                             </p:commandLink>
                             <p:commandLink id="resetBtn" 
-                                           styleClass="btn white grey-text text-darken-4 waves-effect waves-teal margin-left"
+                                           styleClass="btn white grey-text text-darken-4 waves-effect waves-read margin-left"
                                            action="#{subjectMB.reset()}"
                                            update='createSubject'
                                            >

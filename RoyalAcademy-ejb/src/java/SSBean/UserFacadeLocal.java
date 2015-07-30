@@ -5,6 +5,7 @@
  */
 package SSBean;
 
+import Entity.Courses;
 import Entity.User;
 import java.util.List;
 import javax.ejb.Local;
@@ -33,5 +34,9 @@ public interface UserFacadeLocal {
     int count();
 
     User findByUsrPss(final String username, final String password);
+
+    List<User> findByCreatedDate();
+
+    List<Courses> findCoursesByUserCreatedDate();
     
 }

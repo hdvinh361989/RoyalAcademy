@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
+    @NamedQuery(name = "User.findCourseByUserCreatedDate", query = "SELECT u.course FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findByUpdatedDate", query = "SELECT u FROM User u WHERE u.updatedDate = :updatedDate"),
     @NamedQuery(name = "User.findByAvailable", query = "SELECT u FROM User u WHERE u.available = :available")})
 public class User implements Serializable {
@@ -56,14 +57,10 @@ public class User implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "_id")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
@@ -108,7 +105,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "staff")
     private Collection<Feedback> feedbackCollection;
     @OneToMany(mappedBy = "owner")
-    private Collection<Feedback> feedbackCollection1;
+    private Collection<Feedback> feedbackCollectionOwner;
     @JoinColumn(name = "course", referencedColumnName = "_id")
     @ManyToOne
     private Courses course;
@@ -269,12 +266,12 @@ public class User implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Feedback> getFeedbackCollection1() {
-        return feedbackCollection1;
+    public Collection<Feedback> getFeedbackCollectionOwner() {
+        return feedbackCollectionOwner;
     }
 
-    public void setFeedbackCollection1(Collection<Feedback> feedbackCollection1) {
-        this.feedbackCollection1 = feedbackCollection1;
+    public void setFeedbackCollectionOwner(Collection<Feedback> feedbackCollectionOwner) {
+        this.feedbackCollectionOwner = feedbackCollectionOwner;
     }
 
     public Courses getCourse() {

@@ -45,16 +45,11 @@ and open the template in the editor.
                             </a>
                             <div class="collapsible-body" style="display: block">
                                 <ul>
-                                    <li>
-                                        <a href="user_create.xhtml" 
-                                           class='waves-effect wave-red 
-                                           #{navigator.titles.get(view.viewId).equalsIgnoreCase("create user") ? "active" : ""}'>
-                                            Create</a>
+                                    <li class='#{navigator.titles.get(view.viewId).equalsIgnoreCase("Create user") ? "active" : ""}'>
+                                        <a href="user_create.xhtml" >Create</a>
                                     </li>
-                                    <li><a href="user_view.xhtml" 
-                                           class='waves-effect wave-red
-                                           #{navigator.titles.get(view.viewId).equalsIgnoreCase("view user") ? "active" : ""}'>
-                                            View</a>
+                                    <li class='#{navigator.titles.get(view.viewId).equalsIgnoreCase("View user") ? "active" : ""}'>
+                                        <a href="user_view.xhtml" >View</a>
                                     </li>
                                 </ul>
                             </div>

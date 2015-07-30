@@ -5,7 +5,10 @@
  */
 package SSBean;
 
+import Entity.Courses;
 import Entity.User;
+import helper.IDHelper;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +20,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
+
     @PersistenceContext(unitName = "RoyalAcademy-ejbPU")
     private EntityManager em;
 
@@ -31,12 +35,12 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
 
     @Override
     public User findByUsrPss(final String username, final String password) {
-        User user;        
-        user = (User)em.createNamedQuery("User.findByUsernameAndPass")
+        User user;
+        user = (User) em.createNamedQuery("User.findByUsernameAndPass")
                 .setParameter("username", username.trim())
                 .setParameter("password", password.trim())
                 .getSingleResult();
-        
+
         return user;
     }
 
@@ -46,5 +50,44 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
                 .setParameter("fullName", query)
                 .getResultList();
     }
+
+    @Override
+    public void create(User entity) {
+        String id = IDHelper.generateID();
+        Date createdDate = new Date();
+        entity.setId(id);
+        entity.setCreatedDate(createdDate);
+        super.create(entity); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remove(User entity) {
+        if (entity != null) {
+            entity = em.merge(entity);
+            Courses relatedCourse = entity.getCourse();
+            if (relatedCourse != null) {
+                relatedCourse = em.merge(relatedCourse);
+                relatedCourse.getUserCollection().remove(entity);
+            }
+            super.remove(entity); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+    @Override
+    public List<User> findByCreatedDate() {
+        Date today = new Date();
+        return em.createNamedQuery("User.findByCreatedDate")
+                .setParameter("createdDate", today)
+                .getResultList();
+    }
+
+    @Override
+    public List<Courses> findCoursesByUserCreatedDate() {
+        Date today = new Date();
+        return em.createNamedQuery("User.findCourseByUserCreatedDate")
+                .setParameter("createdDate", today)
+                .getResultList();
+    }
+
     
 }

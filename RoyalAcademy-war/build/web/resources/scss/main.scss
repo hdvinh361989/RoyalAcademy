@@ -16,7 +16,9 @@ $margin-width: 10px !default;
 .fullheight{
     height: 100vh;
 }
-
+.text-center{
+    text-align: center;
+}
 .padding{
     padding: $padding-width;
 }
@@ -149,8 +151,7 @@ $margin-width: 10px !default;
     box-shadow: 0 1px 0 0 #26a69a !important;
 }
 //SelectOneButton
-.vt-oneBtn{
-    margin: 0px 15px 0px 15px;
+.vt-oneBtn{   
 
     .ui-button{
         overflow: hidden;
@@ -173,10 +174,50 @@ $margin-width: 10px !default;
 
 //witch
 .switch{
-    height: 58px;
+    /*height: 58px;*/
     /* vertical-align: middle; */
     display: flex;
     align-items: flex-end;
+}
+
+.vt-booleancheckbox.ui-inputswitch{
+    border-radius: 10px;
+    border: 1px solid #ddd;
+
+    .ui-inputswitch-off{
+        background-color: rgb(238, 110, 115);
+        height: 25px;
+        color: white;
+        font-weight: normal;
+        background-image: none;
+    }
+
+    .ui-inputswitch-on{
+        height: 25px;
+        top: -1px;
+        color: white;
+        font-weight: normal;
+        text-shadow: none;
+        width: 32px;
+        background-image: none;
+        background-color: rgb(38, 166, 154);
+    }
+
+    .ui-inputswitch-handle{
+        background-image: none;
+        background-color: rgb(241, 241, 241);
+    }
+}
+
+//SeletectOneMenu in datatable custom filter
+.ui-column-customfilter{
+    .vt-selectonemenu{
+        width: 100% !important;
+        
+        label{
+            width: 100% !important;
+        }
+    }
 }
 
 /*materializecss*/

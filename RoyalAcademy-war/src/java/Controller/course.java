@@ -15,6 +15,7 @@ import SSBean.SubjectCourseDetailFacadeLocal;
 import SSBean.SubjectFacadeLocal;
 import helper.MessageHelper;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.ejb.EJB;
@@ -70,14 +71,42 @@ public class course {
         oldSubjectCourseDetails = null;
     }
 //    reset
-    public void reset(){
+
+    public void reset() {
         resetInput();
     }
+//    Prepare name
+//    public void prepareName(ActionEvent event){
+//        String name = null;
+//        if (newCourse.getAreaOfStudy() != null) {
+//            name = newCourse.getAreaOfStudy().getId();
+//        }
+//        if (newCourse.getStartTime() != null) {
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(newCourse.getStartTime());
+//            String year = String.valueOf(cal.get(Calendar.YEAR));
+//            name += "-" + year;
+//        }
+//        newCourse.setName(name);
+//    }
 
 //    Create method
     public String create() {
         try {
             if (newCourse.getId() == null) {
+                
+                String name = "";
+                if (newCourse.getAreaOfStudy() != null) {
+                    name = newCourse.getAreaOfStudy().getId();
+                }
+                if (newCourse.getStartTime() != null) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(newCourse.getStartTime());
+                    String year = String.valueOf(cal.get(Calendar.YEAR));
+                    name += "-" + year;
+                }
+                newCourse.setName(name);
+
                 //Create new course
                 coursesFacade.createExt(newCourse);
 

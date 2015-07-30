@@ -18,25 +18,28 @@ and open the template in the editor.
                     <div class="col s12">
                         <p:growl id="message" autoUpdate="true" showDetail="false"/>
                         <div class="row no-margin">
-                            <div class="input-field col s6">
-                                <p:inputText id="name" type="text" styleClass="validate" 
+<!--                            <div class="input-field col s6">
+                                <p:inputMask id="name" 
+                                             mask="aa-9999-09"
+                                             styleClass="validate" 
                                              value="#{courseMB.newCourse.name}"
                                              placeholder="Name"
+                                             required="true"
                                              requiredMessage="Name is required">
-                                </p:inputText>
-                            </div>
-                            <div class="input-field col s6">
+                                </p:inputMask>
+                            </div>-->
+                            <div class="input-field col s12">
                                 <p:autoComplete widgetVar="areaOfStudy" id="areaOfStudy"
                                                 emptyMessage="No result found"
                                                 maxResults="10"
-                                                requiredMessage="required"
+                                                requiredMessage="Area of study is required"
                                                 value="#{courseMB.newCourse.areaOfStudy}"
                                                 completeMethod="#{courseMB.suggestList}"
                                                 forceSelection="true"
                                                 var="item" itemLabel="#{item.name}" itemValue="#{item}"
                                                 converter="areaOfStudy" converterMessage="Convert fail" 
                                                 styleClass="validate vt-autocomplete"
-                                                placeholder="Area Of Study"
+                                                placeholder="Area Of Study"                                                
                                                 >
                                     <f:validateRequired id="validArea" for="areaOfStudy"/>
                                 </p:autoComplete>
