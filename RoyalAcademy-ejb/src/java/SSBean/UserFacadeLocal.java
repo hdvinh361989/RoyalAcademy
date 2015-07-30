@@ -20,6 +20,8 @@ public interface UserFacadeLocal {
     void create(User user);
 
     void edit(User user);
+    
+    void edit(List<User> selectedUsers, User user);
 
     void remove(User user);
 

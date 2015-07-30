@@ -75,14 +75,14 @@ and open the template in the editor.
                     <section id="profile" class="col s12 row">
                         <div class="col s12 row">
                             <div class="input-field col s12 m6">
-                                <p:inputText type="text" id="uuiidd"
+                                <p:inputText type="text" id="asda"
                                              value="#{user_createMB.newUser.username}"
                                              styleClass=""
                                              placeholder="Username"
                                              autocomplete="off" />                            
                             </div>
                             <div class="input-field col s12 m6">
-                                <p:inputText type="password" id="ppwwdd"
+                                <p:inputText type="password" id="qweqw"
                                              value="#{user_createMB.newUser.password}"
                                              styleClass=""
                                              placeholder="Password"
@@ -203,7 +203,7 @@ and open the template in the editor.
                                 <p:outputPanel styleClass="row">                                    
                                     <div class="col s12">
                                         <p:commandLink id="editSelectionBtn"
-                                                       action="#{user_createMB.modifySelectedUsers()}"
+                                                       onclick="PF('modifyDialog').show();"
                                                        styleClass="btn waves-effect waves-light white-text right">
                                             <span class="tooltipped"
                                                   data-position="top"
@@ -287,6 +287,80 @@ and open the template in the editor.
                     </script>
                 </h:form>
             </main>
+
+
+
+            <p:dialog id="modifyDialog" widgetVar="modifyDialog"
+                      modal="true" dynamic="true"
+                      styleClass="vt-dialog" 
+                      closeOnEscape="true"
+                      >
+                <h:form id="modifyDialogFm" class="row">
+                    <div class="row">
+                        <div class="col s4 m3">
+                            <a class="btn-flat waves-effect waves-teal"
+                               onclick="PF('modifyDialog').hide();">  
+                                back
+                                <i class="material-icons mdi-image-navigate-before left"></i>
+                            </a>
+                        </div>
+
+                        <div class="col s4 m6 center"
+                             style="height: 36px; display: flex; align-items: center; justify-content: center;">
+                            <span>Modify</span>
+                        </div>
+
+                        <div class="col s4 m3">
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal"
+                                           action="#{user_createMB.modifySelectedUsers()}"
+                                           update="readRecentUser modifyDialogFm"
+                                           oncomplete="PF('modifyDialog').hide()">
+                                <span class="teal-text">Update</span>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="switch">
+                                <p:outputLabel value="Available" for="available"/>
+                                <p:inputSwitch id="available"
+                                               value="#{user_createMB.newUserDialog.available}" 
+                                               onLabel="On" offLabel="Off"
+                                               styleClass="vt-booleancheckbox"/>                                
+                            </div>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p:autoComplete id="course" 
+                                            value="#{user_createMB.newUserDialog.course}"
+                                            completeMethod="#{user_createMB.courseAutos}" var="item"
+                                            itemLabel="#{item.name}" itemValue="#{item}"
+                                            forceSelection="true"
+                                            converter="courseCvtr" converterMessage="Convert fail"
+                                            maxResults="10"
+                                            emptyMessage="No result found"
+                                            styleClass="validate vt-autocomplete"
+                                            placeholder="Course"/>
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                            <p:inputText type="text" id="asda"
+                                         value="#{user_createMB.newUserDialog.username}"
+                                         styleClass=""
+                                         placeholder="Username"
+                                         autocomplete="off" />                            
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <p:inputText type="password" id="qweqw"
+                                         value="#{user_createMB.newUserDialog.password}"
+                                         styleClass=""
+                                         placeholder="Password"
+                                         autocomplete="off"/>
+                        </div>
+                    </div>
+                </h:form>
+
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </html>

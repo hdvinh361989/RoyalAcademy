@@ -20,19 +20,19 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal {
-
+    
     @PersistenceContext(unitName = "RoyalAcademy-ejbPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public UserFacade() {
         super(User.class);
     }
-
+    
     @Override
     public User findByUsrPss(final String username, final String password) {
         User user;
@@ -40,17 +40,17 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
                 .setParameter("username", username.trim())
                 .setParameter("password", password.trim())
                 .getSingleResult();
-
+        
         return user;
     }
-
+    
     @Override
     public List<User> findByName(String query) {
         return em.createNamedQuery("User.findByFullName")
                 .setParameter("fullName", query)
                 .getResultList();
     }
-
+    
     @Override
     public void create(User entity) {
         String id = IDHelper.generateID();
@@ -59,7 +59,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
         entity.setCreatedDate(createdDate);
         super.create(entity); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void remove(User entity) {
         if (entity != null) {
@@ -72,7 +72,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
             super.remove(entity); //To change body of generated methods, choose Tools | Templates.
         }
     }
-
+    
     @Override
     public List<User> findByCreatedDate() {
         Date today = new Date();
@@ -80,7 +80,7 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
                 .setParameter("createdDate", today)
                 .getResultList();
     }
-
+    
     @Override
     public List<Courses> findCoursesByUserCreatedDate() {
         Date today = new Date();
@@ -88,6 +88,40 @@ public class UserFacade extends AbstractFacade<User> implements UserFacadeLocal 
                 .setParameter("createdDate", today)
                 .getResultList();
     }
+    
+    @Override
+    public void edit(List<User> selectedUsers, User user) {
+        
+        Boolean available = user.getAvailable();
+        Courses course = user.getCourse();
+        String username = user.getUsername();
+        String password = user.getPassword();
 
+        //Iterate selectedUsers to update available, course, username and password
+        for (User selectedUser : selectedUsers) {
+            
+            if (course != null) {
+                selectedUser.setCourse(course);
+            }
+            if (username != null && !username.equalsIgnoreCase("")) {                
+                selectedUser.setUsername(prepareUsername(username));
+            }
+            
+            if (password != null && !password.equalsIgnoreCase("")) {
+                selectedUser.setPassword(password);
+            }
+            
+            selectedUser.setAvailable(available);
+            
+            //Update to database
+            em.merge(selectedUser);
+        }
+    }
+    
+    private String prepareUsername(String prefix){
+        String id = IDHelper.generateID().substring(0, 4);
+        String name = prefix + id;
+        return name;
+    }
     
 }

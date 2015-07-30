@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">                
+                <h:form id="readRecentUser">    
+                    <p:growl autoUpdate="true" id="msg" />
+                    <div class="row">
+                        <p:dataTable id="dataTable" widgetVar="UserTables"
+                                     value="#{user_viewMB.users}" var="user"
+                                     rows="15" paginator="true"
+                                     paginatorPosition="top"
+                                     filteredValue="#{user_viewMB.filterList}" 
+                                     rowKey="#{user.id}"
+                                     selection="#{user_viewMB.selectedUsers}">
+
+                            <f:facet name="header">
+                                <p:outputPanel styleClass="row">                                    
+                                    <div class="col s12">
+                                        <p:commandLink id="editSelectionBtn"
+                                                       onclick="PF('modifyDialog').show();"
+                                                       styleClass="btn waves-effect waves-light white-text right"
+                                                       >
+                                            <span class="tooltipped"
+                                                  data-position="top"
+                                                  data-tooltip="Modify username, password, course">
+                                                Modify
+                                            </span>
+                                        </p:commandLink>
+                                    </div>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column width="50" selectionMode="multiple" 
+                                      styleClass="text-center"/>
+
+                            <p:column sortBy="#{user.username}" 
+                                      filterBy="#{user.username}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Username"/>
+                                </f:facet>
+                                <h:outputText value="#{user.username}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{user.fullName}" 
+                                      filterBy="#{user.fullName}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Fullname"/>
+                                </f:facet>
+                                <h:outputText value="#{user.fullName}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{user.course.name}" 
+                                      headerText="Course"
+                                      filterBy="#{user.course}"
+                                      filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('UserTables').filter()" 
+                                                     styleClass="vt-selectonemenu">
+                                        <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{user_viewMB.loadCoursesByUserCreatedDate()}" var="course" 
+                                                       itemLabel="#{course.name}"
+                                                       itemValue="#{course}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{user.course.name}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <h:outputText value="#{user.mail}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Phone"/>
+                                </f:facet>
+                                <h:outputText value="#{user.phone}"/>
+                            </p:column>
+
+                            <p:column width="110" >
+                                <p:commandLink action="#{user_viewMB.delete(user)}" 
+                                               update="readRecentUser"
+                                               styleClass="btn-floating waves-effect waves-light red margin-right">
+                                    <i class="material-icons mdi-content-remove"></i>
+                                </p:commandLink>
+                                <p:commandLink action="#{user_viewMB.edit(user)}" 
+                                               styleClass="btn-floating waves-effect waves-teal light">
+                                    <i class="material-icons mdi-editor-mode-edit"></i>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </h:form>
+            </main>
+
+
+
+            <p:dialog id="modifyDialog" widgetVar="modifyDialog"
+                      modal="true" dynamic="true"
+                      styleClass="vt-dialog" 
+                      closeOnEscape="true"
+                      >
+                <h:form id="modifyDialogFm" class="row">
+                    <div class="row">
+                        <div class="col s4 m3">
+                            <a class="btn-flat waves-effect waves-teal"
+                               onclick="PF('modifyDialog').hide();">  
+                                back
+                                <i class="material-icons mdi-image-navigate-before left"></i>
+                            </a>
+                        </div>
+
+                        <div class="col s4 m6 center"
+                             style="height: 36px; display: flex; align-items: center; justify-content: center;">
+                            <span>Modify</span>
+                        </div>
+
+                        <div class="col s4 m3">
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal"
+                                           action="#{user_viewMB.modifySelectedUsers()}"
+                                           update="readRecentUser modifyDialogFm"
+                                           oncomplete="PF('modifyDialog').hide()">
+                                <span class="teal-text">Update</span>
+                            </p:commandLink>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="switch">
+                                <p:outputLabel value="Available" for="available"/>
+                                <p:inputSwitch id="available"
+                                               value="#{user_viewMB.newUserDialog.available}" 
+                                               onLabel="On" offLabel="Off"
+                                               styleClass="vt-booleancheckbox"/>                                
+                            </div>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p:autoComplete id="course" 
+                                            value="#{user_viewMB.newUserDialog.course}"
+                                            completeMethod="#{user_viewMB.courseAutos}" var="item"
+                                            itemLabel="#{item.name}" itemValue="#{item}"
+                                            forceSelection="true"
+                                            converter="courseCvtr" converterMessage="Convert fail"
+                                            maxResults="10"
+                                            emptyMessage="No result found"
+                                            styleClass="validate vt-autocomplete"
+                                            placeholder="Course"/>
+                        </div>
+
+                        <div class="input-field col s12 m6">
+                            <p:inputText type="text" id="asda"
+                                         value="#{user_viewMB.newUserDialog.username}"
+                                         styleClass=""
+                                         placeholder="Username"
+                                         autocomplete="off" />                            
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <p:inputText type="password" id="qweqw"
+                                         value="#{user_viewMB.newUserDialog.password}"
+                                         styleClass=""
+                                         placeholder="Password"
+                                         autocomplete="off"/>
+                        </div>
+                    </div>
+                </h:form>
+
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

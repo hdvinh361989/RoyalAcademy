@@ -10,9 +10,19 @@ and open the template in the editor.
 @import "animation.scss";
 
 
-//Customize
+//Variable
 $padding-width: 10px !default;
 $margin-width: 10px !default;
+$break-small: 320px;
+$break-medium: 768px;
+$break-large: 1200px;
+
+
+//Customize
+body{
+    height: 100vh;
+}
+
 .fullheight{
     height: 100vh;
 }
@@ -152,7 +162,6 @@ $margin-width: 10px !default;
 }
 //SelectOneButton
 .vt-oneBtn{   
-
     .ui-button{
         overflow: hidden;
         background-color: white;
@@ -169,7 +178,6 @@ $margin-width: 10px !default;
         background-color: #ee6e73;
         color: white;
     }
-
 }
 
 //witch
@@ -213,10 +221,19 @@ $margin-width: 10px !default;
 .ui-column-customfilter{
     .vt-selectonemenu{
         width: 100% !important;
-        
+
         label{
             width: 100% !important;
         }
+    }
+}
+//Dialog
+.vt-dialog{
+    &.ui-widget-content{
+        background-color: white;
+    }
+    .ui-dialog-titlebar{
+        display: none;
     }
 }
 

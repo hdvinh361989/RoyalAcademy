@@ -5,9 +5,7 @@ package Controller.user;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Entity.Courses;
 import Entity.User;
-import SSBean.CoursesFacadeLocal;
 import SSBean.UserFacadeLocal;
 import helper.MessageHelper;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
-import sun.net.www.MessageHeader;
 
 /**
  *
@@ -25,15 +22,14 @@ import sun.net.www.MessageHeader;
  */
 @ManagedBean(name = "user_createMB")
 @ViewScoped
-public class create {
+public class create extends User_Abstract{
 
-    @EJB
-    private CoursesFacadeLocal coursesFacade;
     @EJB
     private UserFacadeLocal userFacade;
 
 //    Global variable
     private User newUser = null;
+    private User newUserDialog = null;
     private String searchTxt = "";
     private List<User> filterList = null;
     private List<User> selectedUsers = null;
@@ -47,19 +43,12 @@ public class create {
         init();
     }
 
-    private User initUser() {
-        User tempUser = new User();
-        tempUser.setUsername("");
-        tempUser.setPassword("");
-        tempUser.setRole("student");
-        tempUser.setGender(true);
-        tempUser.setAvailable(true);
-        return tempUser;
-    }
-
     private void init() {
         if (newUser == null) {
             newUser = initUser();
+        }
+        if (newUserDialog == null) {
+            newUserDialog = initUser();
         }
         searchTxt = "";
     }
@@ -83,6 +72,7 @@ public class create {
             MessageHelper.addMessage(FacesContext.getCurrentInstance(), "Update Success");
         }
         resetInput();
+        selectedUsers = new ArrayList<User>();
     }
 
     public void edit(User selectedUser) {
@@ -97,12 +87,15 @@ public class create {
     }
 
     public void modifySelectedUsers() {
-        
-    }
-
-    //Load courses for autocomplete
-    public List<Courses> courseAutos(String query) {
-        return coursesFacade.findByName(query);
+        //Make sure newUserDialog not null
+        if (newUserDialog != null && !selectedUsers.isEmpty()) {
+            userFacade.edit(selectedUsers, newUserDialog);
+        } else {
+            MessageHelper.addMessage(FacesContext.getCurrentInstance(), "newUserDialog must be init or no user is selected");
+            return;
+        }
+        newUserDialog = initUser();        
+        MessageHelper.addMessage(FacesContext.getCurrentInstance(), "Modify Success");        
     }
 
     //Search recent created user in newUserlist
@@ -120,16 +113,6 @@ public class create {
             }
         }
         return tempList;
-    }
-
-    //Load users were created in day
-    private List<User> loadUsersCreatedInDay() {
-        return userFacade.findByCreatedDate();
-    }
-
-//    Load Courses of users whom were created today
-    public List<Courses> loadCoursesByUserCreatedDate() {
-        return userFacade.findCoursesByUserCreatedDate();
     }
 
     /**
@@ -182,7 +165,7 @@ public class create {
     }
 
     /**
-     * @param selectedUser the selectedUser to set
+     * @param selectedUsers the selectedUser to set
      */
     public void setSelectedUsers(List<User> selectedUsers) {
         this.selectedUsers = selectedUsers;
@@ -201,6 +184,20 @@ public class create {
      */
     public void setNewUserList(List<User> newUserList) {
         this.newUserList = newUserList;
+    }
+
+    /**
+     * @return the newUserDialog
+     */
+    public User getNewUserDialog() {
+        return newUserDialog;
+    }
+
+    /**
+     * @param newUserDialog the newUserDialog to set
+     */
+    public void setNewUserDialog(User newUserDialog) {
+        this.newUserDialog = newUserDialog;
     }
 
 }

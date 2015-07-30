@@ -16,6 +16,8 @@ and open the template in the editor.
 
 vt-move-active { opacity: 0; top: -50%; }
 
+body { height: 100vh; }
+
 .fullheight { height: 100vh; }
 
 .text-center { text-align: center; }
@@ -84,5 +86,8 @@ vt-move-active { opacity: 0; top: -50%; }
 
 .ui-column-customfilter .vt-selectonemenu { width: 100% !important; }
 .ui-column-customfilter .vt-selectonemenu label { width: 100% !important; }
+
+.vt-dialog.ui-widget-content { background-color: white; }
+.vt-dialog .ui-dialog-titlebar { display: none; }
 
 /*materializecss*/
