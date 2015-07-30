@@ -46,6 +46,8 @@ public class view extends User_Abstract {
     private List<User> loadAll() {
         return userFacade.findAll();
     }
+    
+    
 
     public void delete(User selectedUser) {
         userFacade.remove(selectedUser);
