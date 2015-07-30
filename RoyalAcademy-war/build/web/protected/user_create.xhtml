@@ -40,7 +40,7 @@ and open the template in the editor.
                                 <f:selectItem itemLabel="Female" itemValue="false"/>
                             </p:selectOneButton>
                         </div>
-                        
+
                         <div class="col s12 m3">
                             <div class="switch">
                                 <p:outputLabel value="Available" for="available"/>
@@ -69,7 +69,7 @@ and open the template in the editor.
                                             styleClass="validate vt-autocomplete"
                                             placeholder="Course"/>
                         </p:outputPanel>
-                        
+
                     </section>
 
                     <section id="profile" class="col s12 row">
@@ -130,8 +130,7 @@ and open the template in the editor.
                                              placeholder="Birthday"
                                              converter="dateTime"
                                              required="true" requiredMessage="Birthday is required">
-                                    <f:convertDateTime for="birthDay" 
-                                                       pattern="dd MMMM, yyyy"
+                                    <f:convertDateTime pattern="dd MMMM, yyyy"
                                                        timeZone="#{TIMEZONE.timeZone}"/>
                                 </p:inputText>
                             </div>

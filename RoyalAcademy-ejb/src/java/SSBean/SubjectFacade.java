@@ -6,7 +6,10 @@
 package SSBean;
 
 import Entity.AreaOfStudy;
+import Entity.Assignment;
+import Entity.ClassDetail;
 import Entity.Subject;
+import Entity.SubjectCourseDetail;
 import helper.IDHelper;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +28,7 @@ import javax.persistence.PersistenceContext;
 public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFacadeLocal {
 
     private static final Integer MAX_RESULT = 10;
-    
+
     @PersistenceContext(unitName = "RoyalAcademy-ejbPU")
     private EntityManager em;
 
@@ -77,6 +80,51 @@ public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFac
         return em.createNamedQuery("Subject.FindNameGroupArea")
                 .setParameter("name", "%" + query + "%")
                 .getResultList();
+    }
+
+    @Override
+    public void remove(Subject entity) {
+        entity = em.merge(entity);
+        AreaOfStudy relatedArea = entity.getAreaOfStudy();
+        Collection<Assignment> assignmentColls = entity.getAssignmentCollection();
+        Collection<Entity.Class> classColls = entity.getClassCollection();
+        Collection<ClassDetail> classDetailColls = entity.getClassDetailCollection();
+        Collection<SubjectCourseDetail> subjCourseDetailColls = entity.getSubjectCourseDetailCollection();
+
+        if (relatedArea != null) {
+            relatedArea = em.merge(relatedArea);
+            em.remove(relatedArea);
+        }
+        
+        if (assignmentColls != null) {
+            for (Assignment assignment : assignmentColls) {
+                assignment = em.merge(assignment);
+                em.remove(assignment);
+            }
+        }
+        
+        if (classColls != null) {
+            for (Entity.Class classColl : classColls) {
+                classColl = em.merge(classColl);
+                em.remove(classColl);
+            }
+        }
+        
+        if (classDetailColls != null) {
+            for (ClassDetail classDetailColl : classDetailColls) {
+                classDetailColl = em.merge(classDetailColl);
+                em.remove(classDetailColl);
+            }
+        }
+        
+        if (subjCourseDetailColls != null) {
+            for (SubjectCourseDetail subjCourseDetailColl : subjCourseDetailColls) {
+                subjCourseDetailColl = em.merge(subjCourseDetailColl);
+                em.remove(subjCourseDetailColl);
+            }
+        }
+
+        super.remove(entity); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
