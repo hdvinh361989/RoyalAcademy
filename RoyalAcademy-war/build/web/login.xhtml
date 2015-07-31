@@ -20,43 +20,52 @@ and open the template in the editor.
         <h:outputScript library="js" name="materialize.js"/>
     </h:head>
     <h:body>
-        <h:form id="login">
-            <div class="container valign-wrapper row" style="height: 100vh">
-                <div class="valign row col s12">
-                    <div class="col s4 offset-s4">
-                        <div class="vt-message">
-                            <p:messages id="messages" autoUpdate="true" closable="true" showDetail="false"/>
+        <h:form id="login" styleClass="red lighten-2">
+            <div class="container valign-wrapper row fullheight " style="margin-bottom: 0px;" >                
+                <div class="valign row col s12">                    
+
+                    <div class="col s10 m6 l4 offset-s1 offset-m3 offset-l4">
+                        <div class="row white-text">
+                            <h1 class="center">Royal Academy</h1>
                         </div>
-                        <div class="row">
-                            <div class="input-field">
-                                <p:inputText id="username" 
-                                             value="#{userMB.user.username}"
-                                             styleClass="validate">
-                                    <f:validateRequired/>
-                                </p:inputText>
-                                <p:outputLabel for="username" value="username"/>
+
+                        <div class="row white padding x2" style="border-radius: 5px">
+                            <div class="row vt-message">
+                                <p:messages id="messages" autoUpdate="true" closable="true" showDetail="false"/>
+                            </div>
+                            
+                            <div class="row padding-left padding-right x2 ">
+                                <div class="input-field">
+                                    <p:inputText id="username" 
+                                                 value="#{userMB.user.username}"
+                                                 styleClass="validate"
+                                                 placeholder="Username">
+                                        <f:validateRequired/>
+                                    </p:inputText>
+                                </div>
+                            </div>
+
+                            <div class="row padding-left padding-right x2 ">
+                                <div class="input-field">
+                                    <p:password id="password" 
+                                                value="#{userMB.user.password}"
+                                                styleClass="validate"
+                                                placeholder="Password">
+                                        <f:validateRequired/>
+                                    </p:password>
+                                </div>
+                            </div>
+
+
+                            <div class="center">
+                                <p:commandLink styleClass="waves-effect waves-light btn"
+                                               action="#{userMB.login()}" >
+                                    Submit
+                                    <i class="material-icons mdi-content-send right"></i>
+                                </p:commandLink>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="input-field">
-                                <p:password id="password" 
-                                             value="#{userMB.user.password}"
-                                             styleClass="validate">
-                                    <f:validateRequired/>
-                                </p:password>
-                                <p:outputLabel for="password" value="password"/>
-                            </div>
-                        </div>
-
-
-                        <div class="center">
-                            <p:commandLink styleClass="waves-effect waves-light btn"
-                                           action="#{userMB.login()}" >
-                                Submit
-                                <i class="material-icons mdi-content-send right"></i>
-                            </p:commandLink>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -16,6 +16,12 @@ and open the template in the editor.
 
 vt-move-active { opacity: 0; top: -50%; }
 
+#vt-preloader-wrapper { position: absolute; top: 0px; left: 0px; background-color: #ee6e73; z-index: 9999; }
+
+.overflow-hidden { overflow: hidden; }
+
+main { padding-top: 20px; padding-bottom: 20px; }
+
 body { height: 100vh; }
 
 .fullheight { height: 100vh; }
@@ -23,6 +29,9 @@ body { height: 100vh; }
 .text-center { text-align: center; }
 
 .padding { padding: 10px; }
+.padding.x2 { padding: 20px !important; }
+.padding.x3 { padding: 30px !important; }
+.padding.x4 { padding: 40px !important; }
 
 .padding-left { padding-left: 10px; }
 .padding-left.x2 { padding-left: 20px !important; }
@@ -30,6 +39,9 @@ body { height: 100vh; }
 .padding-left.x4 { padding-left: 40px !important; }
 
 .padding-right { padding-right: 10px; }
+.padding-right.x2 { padding-right: 20px !important; }
+.padding-right.x3 { padding-right: 30px !important; }
+.padding-right.x4 { padding-right: 40px !important; }
 
 .padding-top { padding-top: 10px; }
 .padding-top.x2 { padding-top: 20px; }

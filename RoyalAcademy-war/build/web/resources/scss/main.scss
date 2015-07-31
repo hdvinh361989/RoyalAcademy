@@ -19,6 +19,20 @@ $break-large: 1200px;
 
 
 //Customize
+#vt-preloader-wrapper{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #ee6e73;
+    z-index: 9999;
+}
+.overflow-hidden{
+    overflow: hidden;
+}
+main{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 body{
     height: 100vh;
 }
@@ -31,6 +45,16 @@ body{
 }
 .padding{
     padding: $padding-width;
+
+    &.x2{
+        padding: 20px !important;
+    }
+    &.x3{
+        padding: 30px !important;
+    }
+    &.x4{
+        padding: 40px !important;
+    }
 }
 .padding-left{
     padding-left: $padding-width;
@@ -47,6 +71,16 @@ body{
 }
 .padding-right{
     padding-right: $padding-width;
+    
+    &.x2{
+        padding-right: 20px !important;
+    }
+    &.x3{
+        padding-right: 30px !important;
+    }
+    &.x4{
+        padding-right: 40px !important;
+    }
 }
 .padding-top{
     padding-top: $padding-width;

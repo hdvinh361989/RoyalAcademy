@@ -34,9 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ClassDetail.findById", query = "SELECT c FROM ClassDetail c WHERE c.id = :id"),
     @NamedQuery(name = "ClassDetail.findByCreatedDate", query = "SELECT c FROM ClassDetail c WHERE c.createdDate = :createdDate")})
 public class ClassDetail implements Serializable {
-    @JoinColumn(name = "subject", referencedColumnName = "_id")
-    @ManyToOne
-    private Subject subject;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -118,12 +116,6 @@ public class ClassDetail implements Serializable {
         return "Entity.ClassDetail[ id=" + id + " ]";
     }
 
-    public Subject getSubject() {
-        return subject;
-    }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
     
 }

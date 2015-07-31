@@ -44,8 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
             + "GROUP BY s.areaOfStudy.id, s.areaOfStudy.name"),
     @NamedQuery(name = "Subject.findByCreatedDate", query = "SELECT s FROM Subject s WHERE s.createdDate = :createdDate")})
 public class Subject implements Serializable {
-    @OneToMany(mappedBy = "subject")
-    private Collection<ClassDetail> classDetailCollection;
+   
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -151,15 +150,6 @@ public class Subject implements Serializable {
     @Override
     public String toString() {
         return "Entity.Subject[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<ClassDetail> getClassDetailCollection() {
-        return classDetailCollection;
-    }
-
-    public void setClassDetailCollection(Collection<ClassDetail> classDetailCollection) {
-        this.classDetailCollection = classDetailCollection;
     }
 
     /**

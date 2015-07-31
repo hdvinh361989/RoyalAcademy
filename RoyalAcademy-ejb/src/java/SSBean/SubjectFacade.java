@@ -88,12 +88,11 @@ public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFac
         AreaOfStudy relatedArea = entity.getAreaOfStudy();
         Collection<Assignment> assignmentColls = entity.getAssignmentCollection();
         Collection<Entity.Class> classColls = entity.getClassCollection();
-        Collection<ClassDetail> classDetailColls = entity.getClassDetailCollection();
         Collection<SubjectCourseDetail> subjCourseDetailColls = entity.getSubjectCourseDetailCollection();
 
         if (relatedArea != null) {
             relatedArea = em.merge(relatedArea);
-            em.remove(relatedArea);
+            relatedArea.getSubjectCollection().remove(entity);
         }
         
         if (assignmentColls != null) {
@@ -108,14 +107,7 @@ public class SubjectFacade extends AbstractFacade<Subject> implements SubjectFac
                 classColl = em.merge(classColl);
                 em.remove(classColl);
             }
-        }
-        
-        if (classDetailColls != null) {
-            for (ClassDetail classDetailColl : classDetailColls) {
-                classDetailColl = em.merge(classDetailColl);
-                em.remove(classDetailColl);
-            }
-        }
+        }             
         
         if (subjCourseDetailColls != null) {
             for (SubjectCourseDetail subjCourseDetailColl : subjCourseDetailColls) {

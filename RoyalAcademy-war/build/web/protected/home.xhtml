@@ -13,8 +13,11 @@ and open the template in the editor.
       >
     <ui:composition template="../template/mainTempl.xhtml">
         <ui:define name="content">
-            <p:outputLabel value="Home"></p:outputLabel>
-             <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <main class="container">
+                <h:form id="homeFm" styleClass="row padding-top">
+                    <p:growl id="msg" autoUpdate="true"/>
+                </h:form>
+            </main>
         </ui:define>
     </ui:composition>
 </html>

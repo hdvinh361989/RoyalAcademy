@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <h:head>
-        <title>Royal Academy Login</title>
+        <title>#{navigator.titles.get(view.viewId)}</title>
         <meta name="viewport" content="width=device-width"/>
         <!--<h:outputStylesheet library="css" name="materialize.css"/>-->
         <h:outputStylesheet library="css" name="ghpages-materialize.css"/>
@@ -22,8 +22,61 @@ and open the template in the editor.
         <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>-->       
     </h:head>
     <h:body>
-        <div class="fullheight row">
+        <div id="vt-main-container" class="fullheight row overflow-hidden" style="position: relative; margin-bottom: 0px;">
 
+            <!--preloader-->
+            <div id="vt-preloader-wrapper" style="width:100%; height: 100%; display: flex; align-items: center;" >
+                <div class="row center">
+                    <div class="row">
+                        <div class="white-text center">
+                            <h1>Royal<br/>Academy</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!--Side Navigation left panel-->
             <ui:insert name="side-nav">
                 <ui:include src="nav.xhtml"/>
@@ -32,10 +85,17 @@ and open the template in the editor.
             <!--Main content right panel-->
             <ui:insert name="content">
                 content
-            </ui:insert>
+            </ui:insert>            
 
+        </div>        
 
-        </div>
-        
+        <script>
+            $('document').ready(function () {
+                setTimeout(function () {
+                    $('#vt-preloader-wrapper').hide();
+                    $('#vt-main-container').removeClass('overflow-hidden');
+                }, 1000);
+            });
+        </script>
     </h:body>
 </html>
