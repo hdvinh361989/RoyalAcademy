@@ -1426,31 +1426,30 @@ span.badge.new:after { content: " new"; }
 
 .no-padding { padding: 0 !important; }
 
-@font-face { font-family: "Material-Design-Icons"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("http://localhost:8080/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.ttf") format("truetype"), url("http://localhost:8080/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg"); font-weight: normal; font-style: normal; }
+@font-face { font-family: "Material-Design-Icons"; src: url("/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.woff") format("woff"), url("/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.ttf") format("truetype"), url("/RoyalAcademy-war/resources/font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg"); font-weight: normal; font-style: normal; }
+[class^="mdi-"], [class*="mdi-"] { speak: none; display: inline-block; font-family: "Material-Design-Icons"; font-style: normal; font-weight: normal; font-variant: normal; text-rendering: auto; /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transform: translate(0, 0); }
+[class^="mdi-"]:before, [class*="mdi-"]:before { display: inline-block; speak: none; text-decoration: inherit; }
+[class^="mdi-"].pull-left, [class*="mdi-"].pull-left { margin-right: .3em; }
+[class^="mdi-"].pull-right, [class*="mdi-"].pull-right { margin-left: .3em; }
+[class^="mdi-"].mdi-lg:before, [class^="mdi-"].mdi-lg:after, [class*="mdi-"].mdi-lg:before, [class*="mdi-"].mdi-lg:after { font-size: 1.33333333em; line-height: 0.75em; vertical-align: -15%; }
+[class^="mdi-"].mdi-2x:before, [class^="mdi-"].mdi-2x:after, [class*="mdi-"].mdi-2x:before, [class*="mdi-"].mdi-2x:after { font-size: 2em; }
+[class^="mdi-"].mdi-3x:before, [class^="mdi-"].mdi-3x:after, [class*="mdi-"].mdi-3x:before, [class*="mdi-"].mdi-3x:after { font-size: 3em; }
+[class^="mdi-"].mdi-4x:before, [class^="mdi-"].mdi-4x:after, [class*="mdi-"].mdi-4x:before, [class*="mdi-"].mdi-4x:after { font-size: 4em; }
+[class^="mdi-"].mdi-5x:before, [class^="mdi-"].mdi-5x:after, [class*="mdi-"].mdi-5x:before, [class*="mdi-"].mdi-5x:after { font-size: 5em; }
 
-.material-icons { speak: none; display: inline-block; font-family: "Material-Design-Icons"; font-style: normal; font-weight: normal; font-variant: normal; text-rendering: auto; /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transform: translate(0, 0); }
-.material-icons:before { display: inline-block; speak: none; text-decoration: inherit; }
-.material-icons.pull-left, [class*="mdi-"].pull-left { margin-right: .3em; }
-.material-icons.pull-right, [class*="mdi-"].pull-right { margin-left: .3em; }
-.material-icons.mdi-lg:before, [class^="mdi-"].mdi-lg:after, [class*="mdi-"].mdi-lg:before, [class*="mdi-"].mdi-lg:after { font-size: 1.33333333em; line-height: 0.75em; vertical-align: -15%; }
-.material-icons.mdi-2x:before, [class^="mdi-"].mdi-2x:after, [class*="mdi-"].mdi-2x:before, [class*="mdi-"].mdi-2x:after { font-size: 2em; }
-.material-icons.mdi-3x:before, [class^="mdi-"].mdi-3x:after, [class*="mdi-"].mdi-3x:before, [class*="mdi-"].mdi-3x:after { font-size: 3em; }
-.material-icons.mdi-4x:before, [class^="mdi-"].mdi-4x:after, [class*="mdi-"].mdi-4x:before, [class*="mdi-"].mdi-4x:after { font-size: 4em; }
-.material-icons.mdi-5x:before, [class^="mdi-"].mdi-5x:after, [class*="mdi-"].mdi-5x:before, [class*="mdi-"].mdi-5x:after { font-size: 5em; }
+[class^="mdi-device-signal-cellular-"]:after, [class^="mdi-device-battery-"]:after, [class^="mdi-device-battery-charging-"]:after, [class^="mdi-device-signal-cellular-connected-no-internet-"]:after, [class^="mdi-device-signal-wifi-"]:after, [class^="mdi-device-signal-wifi-statusbar-not-connected"]:after, .mdi-device-network-wifi:after { opacity: .3; position: absolute; left: 0; top: 0; z-index: 1; display: inline-block; speak: none; text-decoration: inherit; }
 
-.mdi-device-signal-cellular-:after, .mdi-device-battery-:after, .mdi-device-battery-charging-:after, .mdi-device-signal-cellular-connected-no-internet-:after, .mdi-device-signal-wifi-:after, .mdi-device-signal-wifi-statusbar-not-connected:after, .mdi-device-network-wifi:after { opacity: .3; position: absolute; left: 0; top: 0; z-index: 1; display: inline-block; speak: none; text-decoration: inherit; }
+[class^="mdi-device-signal-cellular-"]:after { content: "\e758"; }
 
-.mdi-device-signal-cellular-:after { content: "\e758"; }
+[class^="mdi-device-battery-"]:after { content: "\e735"; }
 
-.mdi-device-battery-:after { content: "\e735"; }
+[class^="mdi-device-battery-charging-"]:after { content: "\e733"; }
 
-.mdi-device-battery-charging-:after { content: "\e733"; }
+[class^="mdi-device-signal-cellular-connected-no-internet-"]:after { content: "\e75d"; }
 
-.mdi-device-signal-cellular-connected-no-internet-:after { content: "\e75d"; }
+[class^="mdi-device-signal-wifi-"]:after, .mdi-device-network-wifi:after { content: "\e765"; }
 
-.mdi-device-signal-wifi-:after, .mdi-device-network-wifi:after { content: "\e765"; }
-
-.mdi-device-signal-wifi-statusbasr-not-connected:after { content: "\e8f7"; }
+[class^="mdi-device-signal-wifi-statusbasr-not-connected"]:after { content: "\e8f7"; }
 
 .mdi-device-signal-cellular-off:after, .mdi-device-signal-cellular-null:after, .mdi-device-signal-cellular-no-sim:after, .mdi-device-signal-wifi-off:after, .mdi-device-signal-wifi-4-bar:after, .mdi-device-signal-cellular-4-bar:after, .mdi-device-battery-alert:after, .mdi-device-signal-cellular-connected-no-internet-4-bar:after, .mdi-device-battery-std:after, .mdi-device-battery-full .mdi-device-battery-unknown:after { content: ""; }
 
@@ -3133,11 +3132,11 @@ nav .input-field label.active { -webkit-transform: translateY(0); -moz-transform
 
 @media only screen and (min-width: 601px) { nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i { height: 64px; line-height: 64px; }
   .navbar-fixed { height: 64px; } }
-@font-face { font-family: "Roboto"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.ttf") format("truetype"); font-weight: 200; }
-@font-face { font-family: "Roboto"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Light.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Light.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Light.ttf") format("truetype"); font-weight: 300; }
-@font-face { font-family: "Roboto"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.ttf") format("truetype"); font-weight: 400; }
-@font-face { font-family: "Roboto"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.ttf") format("truetype"); font-weight: 500; }
-@font-face { font-family: "Roboto"; src: url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.woff2") format("woff2"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.woff") format("woff"), url("http://localhost:8080/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.ttf") format("truetype"); font-weight: 700; }
+@font-face { font-family: "Roboto"; src: url("/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.woff") format("woff"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Thin.ttf") format("truetype"); font-weight: 200; }
+@font-face { font-family: "Roboto"; src: url("/RoyalAcademy-war/resources/font/roboto/Roboto-Light.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Light.woff") format("woff"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Light.ttf") format("truetype"); font-weight: 300; }
+@font-face { font-family: "Roboto"; src: url("/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.woff") format("woff"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "Roboto"; src: url("/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.woff") format("woff"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Medium.ttf") format("truetype"); font-weight: 500; }
+@font-face { font-family: "Roboto"; src: url("/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.woff2") format("woff2"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.woff") format("woff"), url("/RoyalAcademy-war/resources/font/roboto/Roboto-Bold.ttf") format("truetype"); font-weight: 700; }
 a { text-decoration: none; }
 
 html { line-height: 1.5; font-family: "Roboto", sans-serif; font-weight: normal; color: rgba(0, 0, 0, 0.87); }
