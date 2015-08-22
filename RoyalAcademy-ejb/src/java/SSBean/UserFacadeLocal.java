@@ -40,5 +40,7 @@ public interface UserFacadeLocal {
     List<User> findByCreatedDate();
 
     List<Courses> findCoursesByUserCreatedDate();
+
+    List<Courses> findAllCoursesInUse();
     
 }

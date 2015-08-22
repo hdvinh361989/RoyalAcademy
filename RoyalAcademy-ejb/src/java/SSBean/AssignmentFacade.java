@@ -6,6 +6,9 @@
 package SSBean;
 
 import Entity.Assignment;
+import helper.IDHelper;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +30,21 @@ public class AssignmentFacade extends AbstractFacade<Assignment> implements Assi
     public AssignmentFacade() {
         super(Assignment.class);
     }
+
+    @Override
+    public List<Entity.Subject> loadSubInUse() {
+        return em.createNamedQuery("Assignment.loadSubInUse")
+                .getResultList() ;
+    }
+
+    @Override
+    public void create(Assignment entity) {
+        String id = IDHelper.generateID();
+        Date createDate = new Date();
+        entity.setId(id);
+        entity.setCreatedDate(createDate);
+        super.create(entity); 
+    }
+    
     
 }

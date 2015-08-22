@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Assignment.findById", query = "SELECT a FROM Assignment a WHERE a.id = :id"),
     @NamedQuery(name = "Assignment.findByName", query = "SELECT a FROM Assignment a WHERE a.name = :name"),
     @NamedQuery(name = "Assignment.findByDescription", query = "SELECT a FROM Assignment a WHERE a.description = :description"),
+    @NamedQuery(name = "Assignment.loadSubInUse", query = "SELECT DISTINCT a.subject FROM Assignment a "),
     @NamedQuery(name = "Assignment.findByCreatedDate", query = "SELECT a FROM Assignment a WHERE a.createdDate = :createdDate")})
 public class Assignment implements Serializable {
     @Size(max = 100)

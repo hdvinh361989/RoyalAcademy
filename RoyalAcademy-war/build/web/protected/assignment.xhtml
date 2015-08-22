@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">
+                <h:form id="readFm" >    
+                    <p:growl autoUpdate="true" id="msg" />
+                    <div class="row">
+                        <p:dataTable id="dataTable" widgetVar="AssignmentTable"
+                                     value="#{assignmentMB.assignments}" var="ass"
+                                     rows="15" paginator="true"
+                                     paginatorPosition="top"
+                                     filteredValue="#{assignmentMB.filteredAss}" 
+                                     rowKey="#{ass.id}"
+                                     selection="#{assignmentMB.selectedAsses}"
+                                     rowSelectMode="checkbox"
+                                     emptyMessage="No record found"
+                                     tableStyleClass="vt-datatable">
+
+                            <f:facet name="header">
+                                <p:outputPanel styleClass="row">
+                                    <div class="col s12">
+                                        <p:commandLink id="editSelectionBtn"
+                                                       onclick="PF('createDialog').show();"
+                                                       styleClass="btn-floating waves-effect waves-light white-text right"
+                                                       >
+                                            <span class="tooltipped"
+                                                  data-position="top"
+                                                  data-tooltip="Create new assignment">
+                                                <i class="material-icons mdi-content-add"></i>
+                                            </span>
+                                        </p:commandLink>
+                                    </div>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column width="50" selectionMode="multiple" 
+                                      styleClass="text-center"/>
+
+                            <p:column sortBy="#{ass.name}" 
+                                      filterBy="#{ass.name}"
+                                      filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{ass.name}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{ass.subject.name}" 
+                                      headerText="Subject"
+                                      filterBy="#{ass.subject}"
+                                      filterMatchMode="exact">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('AssignmentTable').filter()" 
+                                                     styleClass="vt-selectonemenu">
+                                        <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{assignmentMB.loadSubjectInUse()}" var="subj" 
+                                                       itemLabel="#{subj.name}"
+                                                       itemValue="#{subj}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{ass.subject.name}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="File"/>
+                                </f:facet>
+                                <h:outputText value="#{ass.fileUrl}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Created Date"/>
+                                </f:facet>
+                                <h:outputText value="#{ass.createdDate}">
+                                    <f:convertDateTime pattern="dd MMMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column width="110" >
+                                <p:commandLink action="#{assignmentMB.delete(ass)}" 
+                                               update="readFm"
+                                               styleClass="btn-floating waves-effect waves-light red margin-right">
+                                    <i class="material-icons mdi-content-remove"></i>
+                                </p:commandLink>
+                                <p:commandLink action="#{assignmentMB.edit(ass)}" 
+                                               oncomplete="PF('createDialog').show()"
+                                               update='createFm'
+                                               styleClass="btn-floating waves-effect waves-teal light">
+                                    <i class="material-icons mdi-editor-mode-edit"></i>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </h:form>                
+            </main>
+
+
+            <!--            
+            
+            Create dialog
+            
+            -->
+            <p:dialog id="createDialog" widgetVar="createDialog"
+                      modal="true" dynamic="true"
+                      styleClass="vt-dialog fullscreen"
+                      closeOnEscape="true">
+                <h:form enctype="multipart/form-data"
+                        id="createFm" styleClass="row vt-form" >
+                    <div class="row">
+                        <div class="col s4 m4">
+                            <a class="btn-flat waves-effect waves-teal teal-text left"
+                               onclick="PF('createDialog').hide();">  
+                                back
+                                <i class="material-icons mdi-image-navigate-before left"></i>
+                            </a>
+                        </div>
+
+                        <div class="col s4 m4 center"
+                             style="height: 36px; display: flex; align-items: center; justify-content: center;">
+                            <span>Create</span>
+                        </div>
+
+                        <div class="col s4 m4">
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal right"
+                                           action="#{assignmentMB.save(assignmentMB.newAss)}"
+                                           update="readFm createFm"
+                                           validateClient="true">
+                                <span class="teal-text">Save</span>
+                            </p:commandLink>
+
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal right"
+                                           action="#{assignmentMB.reset()}"
+                                           update="createFm">
+                                <span class="teal-text">Reset</span>
+                            </p:commandLink>
+                        </div>                                              
+                    </div>
+
+                    <div class="row">
+                        <div class="row">
+                            <div class="col s12 m6 input-field">
+                                <p:inputText id='name'
+                                             value="#{assignmentMB.newAss.name}"
+                                             required="true" requiredMessage="Name is required"
+                                             styleClass="validate"
+                                             placeholder="Name"/>
+                            </div>
+                            <div class="col s12 m6">
+                                <p:autoComplete widgetVar="subject" id="subject"
+                                                emptyMessage="No result found"
+                                                maxResults="10"
+                                                required="true" requiredMessage="Subject is required"
+                                                value="#{assignmentMB.newAss.subject}"
+                                                completeMethod="#{assignmentMB.getSubjects}"
+                                                forceSelection="true"
+                                                var="item" itemLabel="#{item.name}" itemValue="#{item}"
+                                                converter="subjectCvtr" converterMessage="Convert fail" 
+                                                styleClass="validate vt-autocomplete"
+                                                placeholder="Subject"                                                
+                                                >
+                                </p:autoComplete>
+                            </div>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p:inputTextarea id="description"
+                                             value="#{assignmentMB.newAss.description}"
+                                             placeholder="Description"
+                                             styleClass="materialize-textarea"/>
+                        </div>
+
+                        <div class="col s12">                          
+                            <p:fileUpload mode="advanced" auto="true"
+                                          multiple="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                          sizeLimit="2097152" fileUploadListener="#{assignmentMB.uploadHandler}"
+                                          invalidFileMessage="Wrong file format"
+                                          invalidSizeMessage="Too large maximum is 2MB"
+                                          styleClass=""
+                                          fileLimit="1"
+                                          accept="/(\.|\/)(gif|jpe?g|png)$/">
+                            </p:fileUpload>
+                        </div>
+                    </div>
+
+                    <script>
+                        $('.datepicker').pickadate({
+                            selectMonths: true, // Creates a dropdown to control month
+                            selectYears: 15 // Creates a dropdown of 15 years to control year
+                        });
+
+                        var button = $('.vt-oneBtn.ui-selectonebutton .ui-button');
+                        button.addClass('btn waves-effect waves-red');
+                    </script>
+                </h:form>       
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>

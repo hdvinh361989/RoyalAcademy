@@ -17,6 +17,121 @@ $break-small: 320px;
 $break-medium: 768px;
 $break-large: 1200px;
 
+// Mixins
+@import "components/prefixer";
+@import "components/mixins";
+@import "components/color";
+
+// Variables;
+@import "components/variables";
+
+
+
+
+//vt-form
+.vt-form{
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=url],
+    input[type=time],
+    input[type=date],
+    input[type=datetime-local],
+    input[type=tel],
+    input[type=number],
+    input[type=search],
+    textarea.materialize-textarea {
+
+        // General Styles
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $input-border-color;
+        border-radius: 0;
+        outline: none;
+        height: 3rem;
+        width: 100%;
+
+        font-size: 1rem;
+        margin: 0 0 15px 0;
+        padding: 0;
+        box-shadow: none;
+        @include box-sizing(content-box);
+        transition: all .3s;
+
+
+        // Disabled input style
+        &:disabled, &[readonly="readonly"] {
+            color: $input-disabled-color;
+            border-bottom: 1px dotted $input-disabled-color;
+        }
+        // Disabled label style
+        &:disabled+label, &[readonly="readonly"]+label {
+            color: $input-disabled-color;
+        }
+        // Focused input style
+        &:focus:not([readonly]) {
+            border-bottom: 1px solid $input-focus-color;
+            box-shadow: 0 1px 0 0 $input-focus-color;
+        }
+        // Focused label style
+        &:focus:not([readonly])+label {
+            color: $input-focus-color;
+        }
+        // Valid Input Style
+        &.valid,
+        &:focus.valid {
+            border-bottom: 1px solid $input-success-color;
+            box-shadow: 0 1px 0 0 $input-success-color;
+        }
+        // Custom Success Message
+        &.valid + label:after,
+            &:focus.valid + label:after {
+            content: attr(data-success);
+            color: $input-success-color;
+            opacity: 1;
+        }
+        // Invalid Input Style
+        &.invalid,
+        &:focus.invalid {
+            border-bottom: 1px solid $input-error-color;
+            box-shadow: 0 1px 0 0 $input-error-color;
+        }
+        // Custom Error message
+        &.invalid + label:after,
+            &:focus.invalid + label:after {
+            content: attr(data-error);
+            color: $input-error-color;
+            opacity: 1;
+        }
+
+        // Form Message Shared Styles
+        & + label:after {
+            display: block;
+            content: "";
+            position: absolute;
+            top: 65px;
+            opacity: 0;
+            transition: .2s opacity ease-out, .2s color ease-out;
+        }
+    }
+
+    //Buton btn btn-large btn-flat
+    .btn,
+    .btn-large,
+    .btn-flat{
+        border: none;
+        border-radius: 2px;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        outline: 0;
+        padding: 0 2rem;
+        text-transform: uppercase;
+        vertical-align: middle;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
 
 //Customize
 #vt-preloader-wrapper{
@@ -71,7 +186,7 @@ body{
 }
 .padding-right{
     padding-right: $padding-width;
-    
+
     &.x2{
         padding-right: 20px !important;
     }
@@ -251,6 +366,16 @@ body{
     }
 }
 
+
+//Datatable
+.vt-datatable{
+    
+    .ui-state-highlight{
+        
+    }
+}
+
+
 //SeletectOneMenu in datatable custom filter
 .ui-column-customfilter{
     .vt-selectonemenu{
@@ -269,8 +394,20 @@ body{
     .ui-dialog-titlebar{
         display: none;
     }
+    
+    &.fullscreen{
+        width: 100% !important;
+        height: 100%  !important;
+        left: 0px !important;
+        top: 0px !important;
+    }
 }
 
+//overlay
+.ui-widget-overlay{
+    width: 100% !important;
+    height: 100%  !important;
+}
 /*materializecss*/
 //Card
 

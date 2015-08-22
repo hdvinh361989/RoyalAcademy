@@ -29,5 +29,11 @@ public interface ClassFacadeLocal {
     List<Class> findRange(int[] range);
 
     int count();
+
+    List<String> findNameGroupCourse(String query);
+
+    List<Entity.Class> findByCourse_Name(Entity.Courses course, String query);
+
+    List<Entity.Class> findByName(String name);
     
 }

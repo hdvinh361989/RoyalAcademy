@@ -29,5 +29,7 @@ public interface AssignmentFacadeLocal {
     List<Assignment> findRange(int[] range);
 
     int count();
+
+    List<Entity.Subject> loadSubInUse();
     
 }

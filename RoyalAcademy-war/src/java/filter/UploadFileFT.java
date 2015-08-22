@@ -22,7 +22,7 @@ import org.primefaces.webapp.filter.FileUploadFilter;
  *
  * @author vinh
  */
-@WebFilter(filterName = "UploadFileFT", urlPatterns = {"/faces/*"}, dispatcherTypes = {DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.REQUEST, DispatcherType.INCLUDE})
+@WebFilter(filterName = "UploadFileFT", urlPatterns = {"/face/*"}, dispatcherTypes = {DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.REQUEST, DispatcherType.INCLUDE})
 public class UploadFileFT extends FileUploadFilter implements Filter {
 
     private static final boolean debug = true;

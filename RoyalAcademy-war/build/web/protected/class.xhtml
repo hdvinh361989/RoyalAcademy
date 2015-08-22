@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">
+                <h:form id="createClass" styleClass="row padding-top">
+                    <p:growl id="msg" autoUpdate="true"/>
+                    <div class="col s12 row">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <p:autoComplete id="course"
+                                                value="#{classMB.newClass.course}"
+                                                completeMethod="#{classMB.getCourse}" var="item"
+                                                itemLabel="#{item.name}" itemValue="#{item}"
+                                                converter="courseCvtr" converterMessage="Convert fail"
+                                                emptyMessage="No result found"
+                                                maxResults="10"
+                                                forceSelection="true"
+                                                required="true" requiredMessage="Course is required"
+                                                placeholder="Course"
+                                                styleClass="validate vt-autocomplete">
+                                </p:autoComplete>
+                            </div>
+                            <div class="input-field col s6">
+                                <p:autoComplete id="subject"
+                                                value="#{classMB.newClass.subject}"
+                                                completeMethod="#{classMB.getSubject}" var="item"
+                                                itemLabel="#{item.name}" itemValue="#{item}"
+                                                converter="subjectCvtr" converterMessage="Convert fail"
+                                                emptyMessage="No result found"
+                                                maxResults="10"
+                                                forceSelection="true"
+                                                required="true" requiredMessage="Subject is required"
+                                                placeholder="Subject"
+                                                styleClass="validate vt-autocomplete">
+                                </p:autoComplete>
+                            </div>
+                            <div class="input-field col s6">
+                                <p:inputText id="staff" styleClass="validate"
+                                             value='#{classMB.newClass.staff}'
+                                             required="true" requiredMessage="Staff is required"
+                                             placeholder="Staff"/>
+                            </div>
+                            <div class="input-field col s6">
+                                <p:inputText id="enrollKey" styleClass="validate"
+                                             value='#{classMB.newClass.enrollKey}'
+                                             required="true" requiredMessage="Enroll Key is required"
+                                             placeholder="Enroll Key"/>
+                            </div>
+
+
+                            <div class="input-field col s6">
+                                <p:inputText type="date"
+                                             id="startDate"
+                                             converter="dateTime"
+                                             value="#{classMB.newClass.startTime}"
+                                             styleClass="validate datepicker"
+                                             placeholder="Start date"
+                                             requiredMessage="Start time is required">
+                                    <f:convertDateTime pattern="dd MMMM, yyyy" timeZone="#{classMB.timeZone}"/>
+                                    <f:validateRequired id="validStartDate" for="startDate"/>
+                                </p:inputText>
+                            </div>
+                            <div class="input-field col s6">
+                                <p:inputText type="date"
+                                             id="endDate"
+                                             converter="dateTime"
+                                             value="#{classMB.newClass.endTime}"
+                                             styleClass="validate datepicker"
+                                             placeholder="End date"
+                                             requiredMessage="End time is required">
+                                    <f:convertDateTime pattern="dd MMMM, yyyy" timeZone="#{classMB.timeZone}"/>
+                                    <f:validateRequired id="validEndDate" for="endDate"/>
+                                </p:inputText>
+                            </div>
+
+
+
+                            <div class="center row">
+                                <p:commandLink id="saveBtn" 
+                                               action="#{classMB.save(classMB.newClass)}"
+                                               styleClass="btn waves-effect waves-light margin-right"
+
+
+                                               >
+                                    Save
+
+                                </p:commandLink>
+                                <p:commandLink id="resetBtn" 
+                                               styleClass="btn white grey-text text-darken-4 waves-effect waves-teal margin-left"
+                                               action="#{classMB.reset()}"
+                                               update='createClass'
+                                               >
+                                    Reset
+                                </p:commandLink>
+                                <p:defaultCommand target="saveBtn" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </h:form>
+
+
+                <h:form id="readCourse">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons mdi-action-search prefix small"></i>
+                            <p:inputText id="searchTxt" type="text"
+                                         value="#{courseMB.searchTxt}"
+                                         placeholder="Search by name"
+                                         >
+                                <!--onkeyup="searchInit(event)"-->
+                                <p:ajax event="keyup" 
+                                        update="readCourse:dataScroller" delay="500"/>
+                            </p:inputText>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <p:dataScroller id="dataScroller" value="#{courseMB.courses}" var="course" chunkSize="10">
+                            <div class="col s12 m4">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                             data-position="top" data-delay="50" data-tooltip="#{course.name}">#{course.name}</div>
+                                        <p>
+                                            <i class="material-icons mdi-action-today padding-right tooltipped"
+                                               data-position='left' data-delay='50' data-tooltip='Start Time'></i>
+                                            <h:outputText value="#{course.startTime}">
+                                                <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{courseMB.timeZone}"/>
+                                            </h:outputText>
+                                            <br/>
+                                            <i class="material-icons mdi-action-today  padding-right tooltipped"
+                                               data-position='left' data-delay='50' data-tooltip='End Time'></i>
+                                            <h:outputText value="#{course.endTime}">
+                                                <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{courseMB.timeZone}"/>
+                                            </h:outputText>
+                                        </p>
+                                    </div>
+                                    <div class="card-action">
+                                        <p:commandLink value="Delete" action="#{courseMB.delete(course)}" >
+                                        </p:commandLink>
+                                        <p:commandLink value="Edit" action="#{courseMB.edit(course)}" >
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.tooltipped').tooltip({delay: 50});
+                                });
+                            </script>
+                        </p:dataScroller>
+                    </div>
+                </h:form>
+            </main>
+        </ui:define>
+    </ui:composition>
+</html>

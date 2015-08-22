@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role"),
     @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
     @NamedQuery(name = "User.findCourseByUserCreatedDate", query = "SELECT DISTINCT u.course FROM User u WHERE u.createdDate = :createdDate "),
+    @NamedQuery(name = "User.findAllCourse", query = "SELECT DISTINCT u.course FROM User u"),
     @NamedQuery(name = "User.findByUpdatedDate", query = "SELECT u FROM User u WHERE u.updatedDate = :updatedDate"),
     @NamedQuery(name = "User.findByAvailable", query = "SELECT u FROM User u WHERE u.available = :available")})
 public class User implements Serializable {
@@ -123,6 +124,23 @@ public class User implements Serializable {
         this.password = password;
         this.fullName = fullName;
         this.mail = mail;
+    }
+    
+    public User(User user){
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.mail = user.mail;
+        this.fullName = user.fullName;
+        this.address = user.address;
+        this.available = user.available;
+        this.birthday = user.birthday;
+        this.course = user.course;
+        this.createdDate = user.createdDate;
+        this.gender = user.gender;
+        this.phone = user.phone;
+        this.role = user.role;
+        this.updatedDate = user.updatedDate;        
     }
 
     public String getId() {

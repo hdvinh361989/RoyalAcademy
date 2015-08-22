@@ -14,8 +14,14 @@ and open the template in the editor.
 
     <ui:composition template="../template/mainTempl.xhtml">
         <ui:define name="content">
-            <main class="container">                
-                <h:form id="readRecentUser">    
+            <main class="container">        
+
+                <!--            Load users on table
+                                Action: delete, edit, modify
+                                    Delete  => delete selected user
+                                    Edit    => edit selected user
+                                    Modify  => edit username, password, course, available of selected users-->
+                <h:form id="readRecentUser" >    
                     <p:growl autoUpdate="true" id="msg" />
                     <div class="row">
                         <p:dataTable id="dataTable" widgetVar="UserTables"
@@ -24,10 +30,13 @@ and open the template in the editor.
                                      paginatorPosition="top"
                                      filteredValue="#{user_viewMB.filterList}" 
                                      rowKey="#{user.id}"
-                                     selection="#{user_viewMB.selectedUsers}">
+                                     selection="#{user_viewMB.selectedUsers}"
+                                     rowSelectMode="checkbox"
+                                     emptyMessage="No record found"
+                                     tableStyleClass="vt-datatable">
 
                             <f:facet name="header">
-                                <p:outputPanel styleClass="row">                                    
+                                <p:outputPanel styleClass="row">
                                     <div class="col s12">
                                         <p:commandLink id="editSelectionBtn"
                                                        onclick="PF('modifyDialog').show();"
@@ -72,7 +81,7 @@ and open the template in the editor.
                                     <p:selectOneMenu onchange="PF('UserTables').filter()" 
                                                      styleClass="vt-selectonemenu">
                                         <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                                        <f:selectItems value="#{user_viewMB.loadCoursesByUserCreatedDate()}" var="course" 
+                                        <f:selectItems value="#{user_viewMB.loadCoursesInUsers()}" var="course" 
                                                        itemLabel="#{course.name}"
                                                        itemValue="#{course}"/>
                                     </p:selectOneMenu>
@@ -96,11 +105,13 @@ and open the template in the editor.
 
                             <p:column width="110" >
                                 <p:commandLink action="#{user_viewMB.delete(user)}" 
-                                               update="readRecentUser"
+                                               update="readRecentUser:dataTable"
                                                styleClass="btn-floating waves-effect waves-light red margin-right">
                                     <i class="material-icons mdi-content-remove"></i>
                                 </p:commandLink>
                                 <p:commandLink action="#{user_viewMB.edit(user)}" 
+                                               oncomplete="PF('editDialog').show()"
+                                               update='editUserFm'
                                                styleClass="btn-floating waves-effect waves-teal light">
                                     <i class="material-icons mdi-editor-mode-edit"></i>
                                 </p:commandLink>
@@ -116,13 +127,13 @@ and open the template in the editor.
             </main>
 
 
-
+            <!--Edit selected users dialog-->
             <p:dialog id="modifyDialog" widgetVar="modifyDialog"
                       modal="true" dynamic="true"
                       styleClass="vt-dialog" 
                       closeOnEscape="true"
                       >
-                <h:form id="modifyDialogFm" class="row">
+                <h:form id="modifyDialogFm" styleClass="row vt-form" >
                     <div class="row">
                         <div class="col s4 m3">
                             <a class="btn-flat waves-effect waves-teal teal-text"
@@ -146,7 +157,7 @@ and open the template in the editor.
                             </p:commandLink>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row padding-top x3">
                         <div class="col s12">
                             <div class="switch">
                                 <p:outputLabel value="Available" for="available"/>
@@ -186,7 +197,178 @@ and open the template in the editor.
                         </div>
                     </div>
                 </h:form>
+            </p:dialog>
 
+
+            <!--Edit selected user dialog-->
+            <p:dialog id="editDialog" widgetVar="editDialog"
+                      modal="true" dynamic="true"
+                      styleClass="vt-dialog fullscreen"
+                      closeOnEscape="true">
+                <h:form id="editUserFm" styleClass="row vt-form" >
+                    <div class="row">
+                        <div class="col s4 m4">
+                            <a class="btn-flat waves-effect waves-teal teal-text left"
+                               onclick="PF('editDialog').hide();">  
+                                back
+                                <i class="material-icons mdi-image-navigate-before left"></i>
+                            </a>
+                        </div>
+
+                        <div class="col s4 m4 center"
+                             style="height: 36px; display: flex; align-items: center; justify-content: center;">
+                            <span>Edit</span>
+                        </div>
+
+                        <div class="col s4 m4">
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal right"
+                                           action="#{user_viewMB.save()}"
+                                           update="readRecentUser editUserFm"
+                                           validateClient="true">
+                                <span class="teal-text">Save</span>
+                            </p:commandLink>
+
+                            <p:commandLink styleClass="btn-flat waves-effect waves-teal right"
+                                           action="#{user_viewMB.reset()}"
+                                           update="editUserFm">
+                                <span class="teal-text">Reset</span>
+                            </p:commandLink>
+                        </div>                                              
+                    </div>
+                    <div id="roleSection" class="col s12 row padding-top x3">
+                        <div class="col s12 m6">
+                            <p:selectOneButton id="role" 
+                                               value="#{user_viewMB.selectedUser.role}"
+                                               styleClass="vt-oneBtn margin-left">
+                                <p:ajax event="change" update="editUserFm"/>
+                                <f:selectItem itemLabel="Student" itemValue="student"/>
+                                <f:selectItem itemLabel="Staff" itemValue="staff"/>
+                                <f:selectItem itemLabel="Admin" itemValue="admin"/>
+                            </p:selectOneButton>
+                        </div>
+
+                        <div class=" col s12 m4">
+                            <p:selectOneButton id="gender" 
+                                               value="#{user_viewMB.selectedUser.gender}"
+                                               styleClass="vt-oneBtn">
+                                <f:selectItem itemLabel="Male" itemValue="true"/>
+                                <f:selectItem itemLabel="Female" itemValue="false"/>
+                            </p:selectOneButton>
+                        </div>
+
+                        <div class="col s12 m2">
+                            <div class="switch">
+                                <p:outputLabel value="Available" for="available"/>
+                                <p:inputSwitch id="available"
+                                               value="#{user_viewMB.selectedUser.available}" 
+                                               onLabel="On" offLabel="Off"
+                                               styleClass="vt-booleancheckbox"/>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="general" class="col s12 row padding-left x2">
+                        <p:outputPanel id="courseWrapper"
+                                       styleClass="input-field col s12"
+                                       rendered='#{(user_viewMB.selectedUser.role.equalsIgnoreCase("student"))}'>
+                            <p:autoComplete id="course" widgetVar="wCourse"
+                                            value="#{user_viewMB.selectedUser.course}"
+                                            completeMethod="#{user_viewMB.courseAutos}" var="item"
+                                            itemLabel="#{item.name}" itemValue="#{item}"
+                                            forceSelection="true"
+                                            converter="courseCvtr" converterMessage="Convert fail"
+                                            maxResults="10"
+                                            emptyMessage="No result found"
+                                            styleClass="validate vt-autocomplete"
+                                            placeholder="Course"/>
+                        </p:outputPanel>
+                    </div>
+
+                    <div id="profile" class="col s12 row">
+                        <div class="col s12 row">
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="text" id="asda"
+                                             value="#{user_viewMB.selectedUser.username}"
+                                             styleClass=""
+                                             placeholder="Username"
+                                             autocomplete="off" />                            
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="password" id="qweqw"
+                                             value="#{user_viewMB.password}"
+                                             styleClass=""
+                                             placeholder="Password"
+                                             autocomplete="off"/>
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="text" id="fullName"
+                                             value="#{user_viewMB.selectedUser.fullName}"
+                                             styleClass="validate"
+                                             placeholder="Full name"
+                                             required="true" requiredMessage="Full name is required"/>                            
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <p:inputText id="email"
+                                             value="#{user_viewMB.selectedUser.mail}"
+                                             styleClass="validate"
+                                             placeholder="Email"
+                                             required="true" requiredMessage="Email is required"
+                                             validatorMessage="Wrong email format">
+                                    <f:validateRegex 
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" 
+                                        for="email"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s12">
+                                <p:inputText type="text" id="address"
+                                             value="#{user_viewMB.selectedUser.address}"
+                                             styleClass="validate"
+                                             required="true" requiredMessage="Address is required"
+                                             placeholder="Address"/>                            
+                            </div>
+                        </div>
+
+                        <div class="col s12 row">
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="date" id="birthDay"
+                                             value="#{user_viewMB.selectedUser.birthday}"
+                                             styleClass="datepicker"
+                                             placeholder="Birthday"
+                                             converter="dateTime"
+                                             required="true" requiredMessage="Birthday is required">
+                                    <f:convertDateTime pattern="dd MMMM, yyyy"
+                                                       timeZone="#{TIMEZONE.timeZone}"/>
+                                </p:inputText>
+                            </div>
+                            <div class="input-field col s12 m6">
+                                <p:inputText type="text" id="phone"
+                                             value="#{user_viewMB.selectedUser.phone}"
+                                             styleClass="validate"
+                                             placeholder="Phone"
+                                             required="true" requiredMessage="Phone is required"
+                                             validatorMessage="Phone is wrong format">
+                                    <f:validateRegex pattern="^0\d{9,10}$" />
+                                </p:inputText>
+                            </div>                            
+                        </div>                        
+
+                        <script>
+                            $('.datepicker').pickadate({
+                                selectMonths: true, // Creates a dropdown to control month
+                                selectYears: 15 // Creates a dropdown of 15 years to control year
+                            });
+
+                            var button = $('.vt-oneBtn.ui-selectonebutton .ui-button');
+                            button.addClass('btn waves-effect waves-red');
+                        </script>
+                    </div>
+                </h:form>       
             </p:dialog>
         </ui:define>
     </ui:composition>

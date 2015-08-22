@@ -36,6 +36,15 @@ and open the template in the editor.
                 <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("subjects") ? "active" : ""}'>
                     <a href="subjects.xhtml" class="waves-effect waves-teal">Subject</a>                    
                 </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("class") ? "active" : ""}'>
+                    <a href="class.xhtml" class="waves-effect waves-teal">Class</a>                    
+                </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("marks") ? "active" : ""}'>
+                    <a href="marks.xhtml" class="waves-effect waves-teal">Marks</a>                    
+                </li>
+                <li class='bold #{navigator.titles.get(view.viewId).equalsIgnoreCase("feedback") ? "active" : ""}'>
+                    <a href="feedback.xhtml" class="waves-effect waves-teal">Feedback</a>                    
+                </li>
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li class='bold #{navigator.titles.get(view.viewId).contains("user") ? "active" : ""}'>

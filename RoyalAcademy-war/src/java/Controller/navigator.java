@@ -18,6 +18,7 @@ import javax.faces.bean.RequestScoped;
 public class navigator {
 
     private HashMap<String, String> titles;
+
     /**
      * Creates a new instance of navigator
      */
@@ -26,6 +27,9 @@ public class navigator {
         titles.put("/protected/home.xhtml", "Home");
         titles.put("/protected/courses.xhtml", "Courses");
         titles.put("/protected/subjects.xhtml", "Subjects");
+        titles.put("/protected/class.xhtml", "Class");
+        titles.put("/protected/marks.xhtml", "Marks");
+        titles.put("/protected/feedback.xhtml", "Feedback");
         titles.put("/protected/user_create.xhtml", "Create user");
         titles.put("/protected/user_view.xhtml", "View user");
     }
@@ -43,7 +47,5 @@ public class navigator {
     public void setTitles(HashMap<String, String> titles) {
         this.titles = titles;
     }
-    
-  
-    
+
 }

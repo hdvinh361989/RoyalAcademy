@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <ui:composition template="../template/mainTempl.xhtml">
+        <ui:define name="content">
+            <main class="container">
+                <!--Staff reply feedback-->
+                <h:form id="staffRepFm" styleClass="row padding-top">
+                    <p:growl id="msg" autoUpdate="true"/>
+                    <div class="col s6 row">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <p:inputTextarea id="answer" styleClass="validate"
+                                                 value='#{feedbackMB.newfeedback.header}'
+                                                 required="true" requiredMessage="Name is required"
+                                                 placeholder="Answer"/>
+                            </div>                       
+                        </div>
+
+                        <div class="center row">
+                            <p:commandLink id="saveBtn" 
+
+                                           styleClass="btn waves-effect waves-light margin-right"
+                                           validateClient="true"
+                                           update='staffReadFm:areaScroller staffRepFm'
+                                           >
+                                Save
+                                <p:defaultCommand target="saveBtn" />
+                            </p:commandLink>
+                            <p:commandLink id="resetBtn" 
+                                           styleClass="btn white grey-text text-darken-4 waves-effect waves-teal margin-left"
+                                           action="#{feeadbackMB.reset()}"
+                                           update='staffRepFm'
+                                           >
+                                Reset
+                            </p:commandLink>
+                        </div>                
+                    </div>
+                </h:form>
+
+
+                <h:form id="staffReadFm">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons mdi-action-search prefix small"></i>
+                            <p:inputText id="searchTxt" type="text"
+                                         value="#{feedbackMB.searchTxt}"
+                                         placeholder="Search by header"
+                                         >
+                                <!--onkeyup="searchInit(event)"-->
+                                <p:ajax event="keyup" 
+                                        update="staffReadFm:areaScroller" delay="500"/>
+                            </p:inputText>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <p:dataScroller id="areaScroller" 
+                                        value="#{feedbackMB.loadGroupArea(feedbackMB.searchTxt)}" var="fb"
+                                        chunkSize="2"
+                                        styleClass="col s12">
+                            <div class="row">
+                                <h3>#{fb[1]}</h3>
+                                <p:dataScroller id="dataScroller" 
+                                                value="#{feedbackMB.loadFeedbackByHeader(fb[0], feedbackMB.searchTxt)}" var="feedback" 
+                                                chunkSize="10">
+                                    <div class="col s12 m4">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" data-delay="50" data-tooltip="#{feedback.header}">#{feedback.header}</div>
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" data-delay="50" data-tooltip="#{feedback.body}">#{feedback.body}</div> 
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" data-delay="50" data-tooltip="#{feedback.answer}">#{feedback.answer}</div>      
+                                                <p>
+                                                    <i class="material-icons mdi-action-today padding-right tooltipped"
+                                                       data-position='left' data-delay='50' data-tooltip='Created Date'></i>
+                                                    <h:outputText value="#{feedback.createdDate}">
+                                                        <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                                    </h:outputText>
+                                                </p>
+                                                <p>
+                                                    <i class="material-icons mdi-action-today padding-right tooltipped"
+                                                       data-position='left' data-delay='50' data-tooltip='Answer Date'></i>
+                                                    <h:outputText value="#{feedback.answerDate}">
+                                                        <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                                    </h:outputText>
+                                                </p>
+                                            </div>
+                                            <div class="card-action">
+                                                <p:commandLink value="Delete" 
+                                                               action="#{feedbackMB.delete(feedbacl)}" 
+                                                               update="readFeedback:areaScroller">
+                                                </p:commandLink>
+                                                <p:commandLink value="Edit" 
+                                                               action="#{subjectMB.edit(feedback)}" 
+                                                               update="createFeedback">
+                                                </p:commandLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+                                    </script>
+                                </p:dataScroller>
+                            </div>
+                        </p:dataScroller>
+                    </div>
+                </h:form>
+
+
+                <!--Student-->
+                <h:form id="studentCreateFm" styleClass="row padding-top">
+                    <p:growl id="msg" autoUpdate="true"/>
+                    <div class="col s6 row">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <p:inputText id="header" styleClass="validate"
+                                             value='#{feedbackMB.newfeedback.header}'
+                                             required="true" requiredMessage="Name is required"
+                                             placeholder="Header"/>
+                            </div>
+                            <div class="input-field col s12">
+                                <p:inputTextarea id="body" styleClass="validate"
+                                                 value='#{feedbackMB.newfeedback.body}'
+                                                 required="true" requiredMessage="Name is required"
+                                                 placeholder="Body"/>
+                            </div>
+                        </div>
+
+                        <div class="center row">
+                            <p:commandLink id="saveBtn" 
+                                           action="#{feedbackMB.save(feedbackMB.newfeedback)}"
+                                           styleClass="btn waves-effect waves-light margin-right"
+                                           validateClient="true"
+                                           update='studentReadFm:areaScroller studentCreateFm'
+                                           >
+                                Save
+                                <p:defaultCommand target="saveBtn" />
+                            </p:commandLink>
+                            <p:commandLink id="resetBtn" 
+                                           styleClass="btn white grey-text text-darken-4 waves-effect waves-teal margin-left"
+                                           action="#{feeadbackMB.reset()}"
+                                           update='studentCreateFm'
+                                           >
+                                Reset
+                            </p:commandLink>
+                        </div>                
+                    </div>
+                </h:form>
+
+
+                <h:form id="studentReadFm">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons mdi-action-search prefix small"></i>
+                            <p:inputText id="searchTxt" type="text"
+                                         value="#{feedbackMB.searchTxt}"
+                                         placeholder="Search by header"
+                                         >
+                                <!--onkeyup="searchInit(event)"-->
+                                <p:ajax event="keyup" 
+                                        update="studentReadFm:areaScroller" delay="500"/>
+                            </p:inputText>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <p:dataScroller id="areaScroller" 
+                                        value="#{feedbackMB.loadGroupArea(feedbackMB.searchTxt)}" var="fb"
+                                        chunkSize="2"
+                                        styleClass="col s12">
+                            <div class="row">
+                                <h3>#{fb[1]}</h3>
+                                <p:dataScroller id="dataScroller" 
+                                                value="#{feedbackMB.loadFeedbackByHeader(fb[0], feedbackMB.searchTxt)}" var="feedback" 
+                                                chunkSize="10">
+                                    <div class="col s12 m4">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" 
+                                                     data-delay="50" 
+                                                     data-tooltip="#{feedback.header}">#{feedback.header}</div>
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" 
+                                                     data-delay="50" 
+                                                     data-tooltip="#{feedback.body}">#{feedback.body}</div>  
+                                                <div class="card-title ellipsis grey-text text-darken-4 tooltipped"
+                                                     data-position="top" 
+                                                     data-delay="50" 
+                                                     data-tooltip="#{feedback.answer}">#{feedback.answer}</div>     
+                                                <p>
+                                                    <i class="material-icons mdi-action-today padding-right tooltipped"
+                                                       data-position='left' 
+                                                       data-delay='50' 
+                                                       data-tooltip='Created Date'></i>
+                                                    <h:outputText value="#{feedback.createdDate}">
+                                                        <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                                    </h:outputText>
+                                                </p>
+                                                <p>
+                                                    <i class="material-icons mdi-action-today padding-right tooltipped"
+                                                       data-position='left' 
+                                                       data-delay='50' 
+                                                       data-tooltip='Answer Date'></i>
+                                                    <h:outputText value="#{feedback.answerDate}">
+                                                        <f:convertDateTime pattern="dd MMM, yyyy" timeZone="#{TIMEZONE.timeZone}"/>
+                                                    </h:outputText>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+                                    </script>
+                                </p:dataScroller>
+                            </div>
+                        </p:dataScroller>
+                    </div>
+                </h:form>
+            </main>
+        </ui:define>
+    </ui:composition>    
+
+
+</html>

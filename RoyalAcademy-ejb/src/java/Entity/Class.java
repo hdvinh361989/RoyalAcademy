@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Class.findAll", query = "SELECT c FROM Class c"),
     @NamedQuery(name = "Class.findById", query = "SELECT c FROM Class c WHERE c.id = :id"),
+    @NamedQuery(name = "Class.findByName", query = "SELECT c FROM Class c WHERE c.name = :name"),
     @NamedQuery(name = "Class.findByEnrollKey", query = "SELECT c FROM Class c WHERE c.enrollKey = :enrollKey"),
     @NamedQuery(name = "Class.findByStartTime", query = "SELECT c FROM Class c WHERE c.startTime = :startTime"),
     @NamedQuery(name = "Class.findByEndTime", query = "SELECT c FROM Class c WHERE c.endTime = :endTime"),
@@ -59,6 +60,9 @@ public class Class implements Serializable {
     @Column(name = "createdDate")
     @Temporal(TemporalType.DATE)
     private Date createdDate;
+    @Size(max = 50)
+    @Column(name = "name")
+    private String name;
     @OneToMany(mappedBy = "class1")
     private Collection<ClassDetail> classDetailCollection;
     @OneToMany(mappedBy = "class1")
@@ -185,6 +189,20 @@ public class Class implements Serializable {
     @Override
     public String toString() {
         return "Entity.Class[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

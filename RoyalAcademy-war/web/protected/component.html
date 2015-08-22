@@ -1,0 +1,14 @@
+<p:autoComplete widgetVar="areaOfStudy" id="areaOfStudy"
+                emptyMessage="No result found"
+                maxResults="10"
+                requiredMessage="Area of study is required"
+                value="#{courseMB.newCourse.areaOfStudy}"
+                completeMethod="#{courseMB.suggestList}"
+                forceSelection="true"
+                var="item" itemLabel="#{item.name}" itemValue="#{item}"
+                converter="areaOfStudy" converterMessage="Convert fail" 
+                styleClass="validate vt-autocomplete"
+                placeholder="Area Of Study"                                                
+                required="true">
+</p:autoComplete>
+
